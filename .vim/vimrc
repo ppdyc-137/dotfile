@@ -1,0 +1,108 @@
+syntax on
+set nocompatible
+filetype on
+filetype indent on
+filetype plugin on
+filetype plugin indent on
+set mouse=a
+set encoding=utf-8
+set expandtab
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
+set list
+set listchars=tab:▸\ ,trail:▫
+set scrolloff=5
+set tw=0
+set indentexpr=
+set backspace=indent,eol,start
+set foldmethod=indent
+set foldlevel=99
+set laststatus=2
+set autochdir
+au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+set number
+set cursorline
+set wrap
+set showcmd
+set wildmenu
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
+set updatetime=100
+
+
+let mapleader=' '
+
+noremap <LEADER><CR> :noh<CR>
+
+map s :<nop>
+map S :w<CR>
+map Q :q<CR>
+map R :source $MYVIMRC<CR>
+
+map J 5j
+map K 5k
+
+" split
+map sl :set splitright<CR>:vsplit<CR>
+map sh :set nosplitright<CR>:vsplit<CR>
+map sj :set splitbelow<CR>:split<CR>
+map sk :set nosplitbelow<CR>:split<CR>
+
+map <LEADER>l <C-w>l
+map <LEADER>h <C-w>h
+map <LEADER>j <C-w>j
+map <LEADER>k <C-w>k
+
+map <up> :res+5<CR>
+map <down> :res-5<CR>
+map <left> :vertical res-5<CR>
+map <right> :vertical res+5<CR>
+
+" tabe
+map <C-n> :tabe<CR>
+map <C-j> :tabnext<CR>
+map <C-k> :-tabnext<CR>
+
+
+call plug#begin()
+
+" colorscheme
+Plug 'morhetz/gruvbox'
+
+" statusline
+Plug 'vim-airline/vim-airline'
+
+" File explorer
+Plug 'preservim/nerdtree'
+
+" class outline viewer
+Plug 'preservim/tagbar', { 'on': 'TagbarToggle' }
+
+call plug#end()
+
+
+" gruvbox
+" let g:gruvbox_transparent_bg = '1'
+autocmd vimenter * ++nested colorscheme gruvbox
+set background=dark
+
+
+" NERDTree
+noremap tn :NERDTreeToggle<CR>
+
+" Start NERDTree and put the cursor back in the other window.
+" autocmd VimEnter * NERDTree | wincmd p
+
+" Exit Vim if NERDTree is the only window remaining in the only tab.
+autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
+
+" Open the existing NERDTree on each new tab.
+autocmd BufWinEnter * if getcmdwintype() == '' | silent NERDTreeMirror | endif
+
+
+" TagbarToggle
+nmap tt :TagbarToggle<CR>
+
