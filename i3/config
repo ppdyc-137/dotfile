@@ -23,7 +23,7 @@ font pango:MesloLGS NF Regular 12
 # exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 exec_always --no-startup-id xmodmap ~/.xmodmap
 exec_always --no-startup-id picom
-exec_always --no-startup-id feh --bg-scale /home/ppdy/Pictures/macOS-BS-Walls/macOS-BS3.jpg 
+exec_always --no-startup-id feh --bg-scale /home/ppdy/Pictures/your-name.jpg 
 exec_always --no-startup-id $HOME/.config/i3/tap-to-click.sh
 
 
