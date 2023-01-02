@@ -1,0 +1,9 @@
+configuration {
+	modes: "combi";
+	combi-modes: "window,drun,run";
+	font: "MesloLGS NF 12";
+	run-shell-command: "zsh";
+	kb-row-up: "Control+k";
+	kb-row-down: "Control+j";
+}
+@theme "android_notification"
