@@ -79,7 +79,7 @@ configuration {
 /*	kb-remove-char-back: "BackSpace,Shift+BackSpace,Control+h";*/
 	kb-remove-to-eol: "";
 /*	kb-remove-to-sol: "Control+u";*/
-	kb-accept-entry: "";
+	kb-accept-entry: "Return";
 /*	kb-accept-custom: "Control+Return";*/
 /*	kb-accept-custom-alt: "Control+Shift+Return";*/
 /*	kb-accept-alt: "Shift+Return";*/
@@ -89,8 +89,8 @@ configuration {
 /*	kb-mode-complete: "Control+l";*/
 /*	kb-row-left: "Control+Page_Up";*/
 /*	kb-row-right: "Control+Page_Down";*/
-	kb-row-up: "Control+k";
-	kb-row-down: "Control+j";
+	kb-row-up: "Control+k,Up";
+	kb-row-down: "Control+j,Down";
 /*	kb-row-tab: "";*/
 /*	kb-element-next: "Tab";*/
 /*	kb-element-prev: "ISO_Left_Tab";*/
