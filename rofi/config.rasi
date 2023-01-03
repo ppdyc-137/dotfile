@@ -149,4 +149,5 @@ configuration {
       sorting-method:    "name";
   }
 }
-@theme "android_notification"
+//@theme "android_notification"
+@theme "/usr/share/rofi/themes/gruvbox-light-soft.rasi"
