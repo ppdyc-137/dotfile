@@ -65,10 +65,12 @@ noremap <LEADER><CR> :noh<CR>
 map s :<nop>
 map S :w<CR>
 map Q :q<CR>
-map R :source $MYVIMRC<CR>
+" map R :source $MYVIMRC<CR>
 
 map J 5j
 map K 5k
+map H 5h
+map L 5l
 
 " split
 map sl :set splitright<CR>:vsplit<CR>
@@ -87,10 +89,34 @@ map <left> :vertical res-5<CR>
 map <right> :vertical res+5<CR>
 
 " tabe
-map <C-n> :tabe<CR>
-map <C-j> :tabnext<CR>
-map <C-k> :-tabnext<CR>
+" map <C-n> :tabe<CR>
+" map <C-j> :tabnext<CR>
+" map <C-k> :-tabnext<CR>
 
+" run
+" Compile function
+noremap r :call CompileRunGcc()<CR>
+func! CompileRunGcc()
+	if &filetype == 'c'
+		set splitbelow
+		:sp
+		term gcc % -o %< && ./%< && rm ./%<
+	elseif &filetype == 'cpp'
+		set splitbelow
+		:sp
+		:term g++ -std=c++11 % -Wall -o %< && ./%< && rm ./%<
+	elseif &filetype == 'sh'
+		:!time bash %
+	elseif &filetype == 'python'
+		set splitbelow
+		:sp
+		:term python3 %
+	elseif &filetype == 'javascript'
+		set splitbelow
+		:sp
+		:term export DEBUG="INFO,ERROR,WARNING"; node --trace-warnings .
+	endif
+endfunc
 
 " ==================== Install Plugins with Vim-Plug ====================
 call plug#begin()
@@ -101,11 +127,27 @@ Plug 'morhetz/gruvbox'
 " statusline
 Plug 'vim-airline/vim-airline'
 
+" icons
+Plug 'ryanoasis/vim-devicons'
+
 " File explorer
-Plug 'preservim/nerdtree'
+"Plug 'preservim/nerdtree'
 
 " class outline viewer
-Plug 'preservim/tagbar', { 'on': 'TagbarToggle' }
+"Plug 'preservim/tagbar', { 'on': 'TagbarToggle' }
+
+" auto complete
+Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
+
+Plug 'junegunn/vim-easy-align'
+
+Plug 'liuchengxu/vista.vim'
+
+Plug 'tpope/vim-surround'
+Plug 'gcmt/wildfire.vim'
 
 call plug#end()
 
@@ -117,19 +159,126 @@ autocmd VimEnter * hi Normal ctermbg=none
 set background=dark
 
 
-" NERDTree
-noremap tn :NERDTreeToggle<CR>
+"" NERDTree
+"noremap tn :NERDTreeToggle<CR>
+"
+"" Start NERDTree and put the cursor back in the other window.
+"" autocmd VimEnter * NERDTree | wincmd p
+"
+"" Exit Vim if NERDTree is the only window remaining in the only tab.
+"autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
+"
+"" Open the existing NERDTree on each new tab.
+"autocmd BufWinEnter * if getcmdwintype() == '' | silent NERDTreeMirror | endif
 
-" Start NERDTree and put the cursor back in the other window.
-" autocmd VimEnter * NERDTree | wincmd p
 
-" Exit Vim if NERDTree is the only window remaining in the only tab.
-autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
+"" TagbarToggle
+" nmap tt :TagbarToggle<CR>
 
-" Open the existing NERDTree on each new tab.
-autocmd BufWinEnter * if getcmdwintype() == '' | silent NERDTreeMirror | endif
+" coc
 
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved
+" set signcolumn=yes
 
-" TagbarToggle
-nmap tt :TagbarToggle<CR>
+let g:coc_global_extensions = [
+	\ 'coc-git',
+	\ 'coc-json',
+	\ 'coc-yank',
+	\ 'coc-vimlsp',
+	\ 'coc-clangd',
+	\ 'coc-pyright',
+	\ 'coc-explorer',
+	\ 'coc-marketplace'
+	\]
 
+inoremap <silent><expr> <TAB>
+      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ CheckBackspace() ? "\<Tab>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+
+" Make <CR> to accept selected completion item or notify coc.nvim to format
+" <C-g>u breaks current undo, please make your own choice
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+function! CheckBackspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list
+nmap <silent> <LEADER>- <Plug>(coc-diagnostic-prev)
+nmap <silent> <LEADER>+ <Plug>(coc-diagnostic-next)
+
+" GoTo code navigation
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Show Documentation
+nnoremap <silent> gh :call ShowDocumentation()<CR>
+
+function! ShowDocumentation()
+  if CocAction('hasProvider', 'hover')
+    call CocActionAsync('doHover')
+	else
+		call feedkeys('K', 'in')
+  endif
+endfunction
+
+" Highlight the symbol and its references when holding the cursor
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Symbol renaming
+nmap <leader>rn <Plug>(coc-rename)
+
+" Formatting selected code
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+" Applying code actions to the selected code block
+" Example: `<leader>aap` for current paragraph
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+" Remap keys for applying refactor code actions
+nmap <silent> <leader>re <Plug>(coc-codeaction-refactor)
+xmap <silent> <leader>r  <Plug>(coc-codeaction-refactor-selected)
+nmap <silent> <leader>r  <Plug>(coc-codeaction-refactor-selected)
+
+" coc-yank
+nnoremap <silent> <space>y  :<C-u>CocList -A --normal yank<cr>
+
+" coc-explorer
+nmap tt <Cmd>CocCommand explorer --toggle<CR>
+
+" ==================== FZF ====================
+let g:fzf_preview_window = 'right:40%'
+let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
+
+command! BD call fzf#run(fzf#wrap({
+  \ 'options': '--multi --reverse'
+\ }))
+
+noremap <c-d> :BD<CR>
+
+let g:fzf_layout = { 'window': { 'width': 0.75, 'height': 0.75 } }
+
+" EasyAlign
+
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+
+" Vista.vim
+nmap tv :Vista!!<CR>
+let g:vista#renderer#enable_icon = 1

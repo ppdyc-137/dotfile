@@ -22,12 +22,14 @@ source $ZSH/oh-my-zsh.sh
 # User configuration
 export EDITOR='nvim'
 
-alias ra="ranger"
+alias r="ranger"
+alias q="exit"
+alias c="clear"
+alias vim="nvim"
+alias n="neofetch"
+
 export RANGER_LOAD_DEFAULT_RC=FALSE
 
-alias q="exit"
-alias clr="clear"
-alias vim="nvim"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
