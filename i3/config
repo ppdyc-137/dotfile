@@ -37,13 +37,19 @@ bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 10%-
 bindsym $mod+v exec "CM_LAUNCHER=rofi clipmenu"
 
 # screenshot
-bindsym Print exec "maim | xclip -selection clipboard -t image/png"
+bindsym Print exec "maim -s | xclip -selection clipboard -t image/png"
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Return exec alacritty
+# start a terminal in floating mode
+bindsym $mod+Shift+Return exec --no-startup-id alacritty --class floating
+
+# enable startup in float from exec by setting the x11 class to floating
+# many apps support '--class floating' for setting the x11 class (the instance get renamed)
+for_window [instance="floating"] floating enabled
 
 # kill focused window
 bindsym $mod+Shift+q kill

@@ -22,9 +22,9 @@ source $ZSH/oh-my-zsh.sh
 # User configuration
 export EDITOR='nvim'
 
-alias r="ranger"
+alias ra="ranger"
 alias q="exit"
-alias c="clear"
+alias clr="clear"
 alias vim="nvim"
 alias n="neofetch"
 

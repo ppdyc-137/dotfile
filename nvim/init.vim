@@ -5,6 +5,12 @@ if empty(glob($HOME.'/.config/nvim/autoload/plug.vim'))
 	autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
+let g:nvim_plugins_installation_completed=1
+if empty(glob($HOME.'/.local/share/nvim/plugged/wildfire.vim/autoload/wildfire.vim'))
+	let g:nvim_plugins_installation_completed=0
+	autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
 " ==================== Editor behavior ====================
 "set clipboard=unnamedplus
 let &t_ut=''
@@ -50,7 +56,7 @@ if has('persistent_undo')
 	set undofile
 	set undodir=$HOME/.config/nvim/tmp/undo,.
 endif
-set colorcolumn=100
+" set colorcolumn=100
 set updatetime=100
 set virtualedit=block
 
@@ -88,6 +94,12 @@ map <down> :res-5<CR>
 map <left> :vertical res-5<CR>
 map <right> :vertical res+5<CR>
 
+" Copy to system clipboard
+vnoremap Y "+y
+
+" Opening a terminal window
+noremap <LEADER>t :vsplit<CR>:term<CR>
+
 " tabe
 " map <C-n> :tabe<CR>
 " map <C-j> :tabnext<CR>
@@ -95,25 +107,25 @@ map <right> :vertical res+5<CR>
 
 " run
 " Compile function
-noremap r :call CompileRunGcc()<CR>
-func! CompileRunGcc()
+noremap r :call CompileRun()<CR>
+func! CompileRun()
 	if &filetype == 'c'
-		set splitbelow
 		:sp
-		term gcc % -o %< && ./%< && rm ./%<
+		:res-10
+		:term gcc % -o %< && ./%< && rm ./%<
 	elseif &filetype == 'cpp'
-		set splitbelow
 		:sp
+		:res-10
 		:term g++ -std=c++11 % -Wall -o %< && ./%< && rm ./%<
 	elseif &filetype == 'sh'
 		:!time bash %
 	elseif &filetype == 'python'
-		set splitbelow
 		:sp
+		:res-10
 		:term python3 %
 	elseif &filetype == 'javascript'
-		set splitbelow
 		:sp
+		:res-10
 		:term export DEBUG="INFO,ERROR,WARNING"; node --trace-warnings .
 	endif
 endfunc
@@ -148,6 +160,10 @@ Plug 'liuchengxu/vista.vim'
 
 Plug 'tpope/vim-surround'
 Plug 'gcmt/wildfire.vim'
+
+Plug 'nvim-treesitter/nvim-treesitter'
+
+Plug 'tpope/vim-commentary'
 
 call plug#end()
 
@@ -271,14 +287,36 @@ noremap <c-d> :BD<CR>
 
 let g:fzf_layout = { 'window': { 'width': 0.75, 'height': 0.75 } }
 
-" EasyAlign
 
+" EasyAlign
 " Start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <Plug>(EasyAlign)
 
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
-nmap ga <Plug>(EasyAlign)
+nmap ga <Plug>(EasyAlig)
+
 
 " Vista.vim
 nmap tv :Vista!!<CR>
 let g:vista#renderer#enable_icon = 1
+
+
+" wildfire.vim
+let g:wildfire_objects = ["i'", 'i"', "i)", "i]", "i}", "ip", "it", "iw", "i>"]
+
+
+" ==================== nvim-treesitter ====================
+if g:nvim_plugins_installation_completed == 1
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+	ensure_installed = {"c", "cpp", "python", "bash"},
+	highlight = {
+		enable = true,
+	},
+	indent = {
+		enable = true
+	}
+}
+EOF
+endif
+
