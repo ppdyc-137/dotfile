@@ -10,9 +10,10 @@ font pango:MesloLGS NF Regular 12
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 exec_always --no-startup-id xmodmap ~/.xmodmap
 exec_always --no-startup-id picom -b
-exec_always --no-startup-id feh --bg-scale /home/ppdy/Pictures/wallpapers/bg_12.jpg 
+exec_always --no-startup-id feh --bg-scale /home/ppdy/Pictures/01.jpg
 exec_always --no-startup-id $HOME/.config/i3/tap-to-click.sh
 exec_always --no-startup-id clipmenud
+exec --no-startup-id fcitx5 -d
 
 # Start XDG autostart .desktop files using dex. See also
 # https://wiki.archlinux.org/index.php/XDG_Autostart

@@ -150,4 +150,5 @@ configuration {
   }
 }
 //@theme "android_notification"
-@theme "/usr/share/rofi/themes/gruvbox-light-soft.rasi"
+//@theme "/usr/share/rofi/themes/gruvbox-light-soft.rasi"
+@theme "/usr/share/rofi/themes/arthur.rasi"

@@ -20,9 +20,9 @@ set secure
 set number
 set cursorline
 set noexpandtab
-set tabstop=2
-set shiftwidth=2
-set softtabstop=2
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
 set autoindent
 set list
 set listchars=tab:\|\ ,trail:▫
@@ -109,6 +109,7 @@ noremap <LEADER>t :vsplit<CR>:term<CR>
 " Compile function
 noremap r :call CompileRun()<CR>
 func! CompileRun()
+	exec "w"
 	if &filetype == 'c'
 		:sp
 		:res-10
@@ -142,12 +143,6 @@ Plug 'vim-airline/vim-airline'
 " icons
 Plug 'ryanoasis/vim-devicons'
 
-" File explorer
-"Plug 'preservim/nerdtree'
-
-" class outline viewer
-"Plug 'preservim/tagbar', { 'on': 'TagbarToggle' }
-
 " auto complete
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 
@@ -159,40 +154,28 @@ Plug 'junegunn/vim-easy-align'
 Plug 'liuchengxu/vista.vim'
 
 Plug 'tpope/vim-surround'
+
 Plug 'gcmt/wildfire.vim'
 
 Plug 'nvim-treesitter/nvim-treesitter'
 
 Plug 'tpope/vim-commentary'
 
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+
+Plug 'ggandor/leap.nvim'
+
 call plug#end()
 
 
-" gruvbox
+" ==================== gruvbox ====================
 let g:gruvbox_transparent_bg = '1'
 autocmd vimenter * ++nested colorscheme gruvbox
 autocmd VimEnter * hi Normal ctermbg=none
 set background=dark
 
 
-"" NERDTree
-"noremap tn :NERDTreeToggle<CR>
-"
-"" Start NERDTree and put the cursor back in the other window.
-"" autocmd VimEnter * NERDTree | wincmd p
-"
-"" Exit Vim if NERDTree is the only window remaining in the only tab.
-"autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
-"
-"" Open the existing NERDTree on each new tab.
-"autocmd BufWinEnter * if getcmdwintype() == '' | silent NERDTreeMirror | endif
-
-
-"" TagbarToggle
-" nmap tt :TagbarToggle<CR>
-
-" coc
-
+" ==================== coc ====================
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved
 " set signcolumn=yes
@@ -223,7 +206,8 @@ function! CheckBackspace() abort
 endfunction
 
 " Use <c-space> to trigger completion
-inoremap <silent><expr> <c-space> coc#refresh()
+inoremap <silent><expr> <C-SPACE> coc#refresh()
+
 
 " navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list
@@ -273,6 +257,7 @@ nnoremap <silent> <space>y  :<C-u>CocList -A --normal yank<cr>
 " coc-explorer
 nmap tt <Cmd>CocCommand explorer --toggle<CR>
 
+
 " ==================== FZF ====================
 let g:fzf_preview_window = 'right:40%'
 let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
@@ -286,7 +271,7 @@ noremap <c-d> :BD<CR>
 let g:fzf_layout = { 'window': { 'width': 0.75, 'height': 0.75 } }
 
 
-" EasyAlign
+" ==================== EasyAlign ====================
 " Start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <Plug>(EasyAlign)
 
@@ -294,12 +279,12 @@ xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlig)
 
 
-" Vista.vim
+" ==================== Vista.vim ====================
 nmap tv :Vista!!<CR>
 let g:vista#renderer#enable_icon = 1
 
 
-" wildfire.vim
+" ==================== wildfire.vim ====================
 let g:wildfire_objects = ["i'", 'i"', "i)", "i]", "i}", "ip", "it", "iw", "i>"]
 
 
@@ -318,3 +303,10 @@ require'nvim-treesitter.configs'.setup {
 EOF
 endif
 
+
+" ==================== markdown-preview ====================
+let g:mkdp_browser = '/usr/bin/google-chrome-stable'
+function OpenMarkdownPreview (url)
+  execute "silent ! google-chrome-stable --new-window " . a:url
+endfunction
+let g:mkdp_browserfunc = 'OpenMarkdownPreview'
