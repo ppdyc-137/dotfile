@@ -131,6 +131,13 @@ func! CompileRun()
 	endif
 endfunc
 
+" inoremap ( ()<ESC>i
+" inoremap [ []<ESC>i
+" inoremap { {}<ESC>i
+" inoremap < <><ESC>i
+" inoremap " ""<ESC>i
+" inoremap ' ''ESC>i
+
 " ==================== Install Plugins with Vim-Plug ====================
 call plug#begin()
 
@@ -165,6 +172,7 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': 
 
 Plug 'ggandor/leap.nvim'
 
+Plug 'mhinz/vim-startify'
 call plug#end()
 
 
@@ -310,3 +318,11 @@ function OpenMarkdownPreview (url)
   execute "silent ! google-chrome-stable --new-window " . a:url
 endfunction
 let g:mkdp_browserfunc = 'OpenMarkdownPreview'
+
+
+" ==================== startify ====================
+let g:startify_bookmarks = [{'v' : "~/.config/nvim/init.vim"}, {'i' : "~/.config/i3/config"}]
+let g:startify_lists = [
+      \ { 'type': 'files',     'header': ['   MRU']            },
+      \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
+      \ ]

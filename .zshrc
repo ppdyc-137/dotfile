@@ -19,27 +19,16 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 
-# User configuration
-export EDITOR='nvim'
-
 alias ra="ranger"
 alias q="exit"
 alias clr="clear"
-alias vim="nvim"
 alias n="neofetch"
-alias t="trans :zh"
 alias df="duf"
 alias cat="bat"
 alias du="gdu"
-
-alias ls='lsd'
-alias l='ls -l'
-alias la='ls -a'
-alias lla='ls -la'
-alias lt='ls --tree'
+alias cw="cowsay"
 
 export RANGER_LOAD_DEFAULT_RC=FALSE
-
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -47,7 +36,5 @@ export RANGER_LOAD_DEFAULT_RC=FALSE
 # fzf
 export FZF_DEFAULT_OPTS='--exact'
 export FZF_COMPLETION_TRIGGER='\'
-export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
+export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git --ignore .cache -g ""'
 
-# zoxide
-eval "$(zoxide init zsh)"
