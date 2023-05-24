@@ -22,9 +22,7 @@ alias q="exit"
 alias clr="clear"
 alias n="neofetch"
 alias df="duf"
-alias cat="bat"
 alias du="gdu"
-alias cw="cowsay"
 
 export RANGER_LOAD_DEFAULT_RC=FALSE
 
