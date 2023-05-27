@@ -6,26 +6,28 @@
 }
 
 #waybar {
-  background: transparent;
+  /* background: transparent; */
+  background-color: @surface0;
   color: @text;
-  margin: 5px 0px 0px;
+  margin: 0;
 }
 
 #workspaces {
   border-radius: 1rem;
-  margin: 5px 0px 0px;
-  background-color: @surface0;
+  margin: 5px 0px;
+  background-color: @surface1;
   margin-left: 1rem;
 }
 
 #workspaces button {
   color: @lavender;
   border-radius: 1rem;
-  padding: 0.4rem;
+  padding: 0.2rem 0.5rem;
 }
 
 #workspaces button.active {
   color: @sky;
+  background-color: @surface2;
   border-radius: 1rem;
 }
 
@@ -43,19 +45,49 @@
 #clock,
 #battery,
 #pulseaudio {
-  background-color: @surface0;
-  padding: 0.5rem 1rem;
-  margin: 5px 0px 0px;
+  background-color: @surface1;
+  padding: 0.2rem 1rem;
+  margin: 5px 0px;
 }
 
-#clock {
-  color: @blue;
-  border-radius: 0px 1rem 1rem 0px;
-  margin-right: 1rem;
+#network {
+  color: @maroon;
+  border-radius: 1rem;
+  margin-right: 0.5rem;
+}
+
+#cpu {
+    color: @peach;
+    border-radius: 1rem 0 0 1rem;
+    margin-right: 0;
+    padding-right: 0.5rem;
+}
+
+#memory {
+    color: @lavender;
+    border-radius: 0 1rem 1rem 0;
+    margin-right: 0.5rem;
+    padding-left: 0.5rem;
+}
+
+#pulseaudio {
+    color: @sky;
+    border-radius: 1rem 0 0 1rem;
+    margin-right: 0;
+    padding-right: 0.5rem;
+}
+
+#backlight {
+  color: @yellow;
+  border-radius: 0 1rem 1rem 0;
+  margin-right: 0.5rem;
+  padding-left: 0.5rem;
 }
 
 #battery {
   color: @green;
+  border-radius: 1rem;
+  margin-right: 0.5rem;
 }
 
 #battery.charging {
@@ -66,22 +98,13 @@
   color: @red;
 }
 
-#backlight {
-  color: @yellow;
-}
-
-#backlight, #battery {
-    border-radius: 0;
-}
-
-#network {
-  color: @maroon;
-  border-radius: 1rem 0px 0px 1rem;
-  margin-left: 1rem;
+#clock {
+  color: @blue;
+  border-radius:1rem;
+  margin-right: 0.5rem;
 }
 
 #tray {
   margin-right: 1rem;
   border-radius: 1rem;
 }
-

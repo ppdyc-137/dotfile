@@ -1,9 +1,8 @@
 {
     "layer": "top", // Waybar at top layer
     "position": "top", // Waybar position (top|bottom|left|right)
-    "height": 40, // Waybar height (to be removed for auto height)
     // "width": 1280, // Waybar width
-    "spacing": 4, // Gaps between modules (4px)
+    // "spacing": 4, // Gaps between modules (4px)
 
     "modules-left": ["wlr/workspaces"],
     // "modules-center": ["hyprland/window"],
@@ -52,16 +51,18 @@
     "network": {
         "format-wifi": "{essid}",
         "format-disconnected": "Offline",
-        "format-alt": "{ifname}: {ipaddr}/{cidr}"
+        "tooltip-format": "{ifname}: {ipaddr}/{cidr}",
+        "on-click": "networkmanager_dmenu &"
     },
     "pulseaudio": {
         "format": "{volume}% {icon}",
-        "format-muted": "婢",
+        "format-muted": "󰝟",
         "format-icons": {
             "headphone": "",
             "default": ["", "", ""]
         },
-        "on-click": "pavucontrol"
+        "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+        "on-click-right": "pavucontrol"
     },
 }
 
