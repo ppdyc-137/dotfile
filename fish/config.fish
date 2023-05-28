@@ -1,7 +1,9 @@
 if status is-interactive
     # Commands to run in interactive sessions can go here
 
-    set -gx EDITOR nvim
+    set -gx EDITOR vim
+
+    # Pure prompt
     # set -u pure_show_system_time true
 
     alias l="ls -l"
@@ -10,15 +12,13 @@ if status is-interactive
     alias q="exit"
     alias clr="clear"
 
-    alias vim="nvim"
-    alias vi="nvim"
+    alias vi="vim"
     alias df="duf"
     alias cat="bat"
     alias du="gdu"
     alias top="htop"
 
     alias n="neofetch"
-    alias cw="cowsay"
     alias ra="joshuto"
 
 end
