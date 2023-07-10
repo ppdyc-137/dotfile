@@ -19,11 +19,11 @@ set exrc
 set secure
 set number
 set cursorline
-set noexpandtab
+set expandtab
 set tabstop=4
 set shiftwidth=4
 set softtabstop=4
-set autoindent
+" set autoindent
 set list
 set listchars=tab:\|\ ,trail:▫
 set scrolloff=4
@@ -56,12 +56,10 @@ if has('persistent_undo')
 	set undofile
 	set undodir=$HOME/.config/nvim/tmp/undo,.
 endif
-" set colorcolumn=100
 set updatetime=100
 set virtualedit=block
 
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-
 
 " ==================== Basic Mappings ====================
 let mapleader=' '
@@ -89,22 +87,6 @@ map <LEADER>h <C-w>h
 map <LEADER>j <C-w>j
 map <LEADER>k <C-w>k
 
-map <up> :res+5<CR>
-map <down> :res-5<CR>
-map <left> :vertical res-5<CR>
-map <right> :vertical res+5<CR>
-
-" Copy to system clipboard
-vnoremap Y "+y
-
-" Opening a terminal window
-noremap <LEADER>t :vsplit<CR>:term<CR>
-
-" tabe
-" map <C-n> :tabe<CR>
-" map <C-j> :tabnext<CR>
-" map <C-k> :-tabnext<CR>
-
 " run
 " Compile function
 noremap r :call CompileRun()<CR>
@@ -131,13 +113,6 @@ func! CompileRun()
 	endif
 endfunc
 
-" inoremap ( ()<ESC>i
-" inoremap [ []<ESC>i
-" inoremap { {}<ESC>i
-" inoremap < <><ESC>i
-" inoremap " ""<ESC>i
-" inoremap ' ''ESC>i
-
 " ==================== Install Plugins with Vim-Plug ====================
 call plug#begin()
 
@@ -153,8 +128,7 @@ Plug 'ryanoasis/vim-devicons'
 " auto complete
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 
-Plug 'junegunn/fzf'
-Plug 'junegunn/fzf.vim'
+Plug 'github/copilot.vim'
 
 Plug 'junegunn/vim-easy-align'
 
@@ -164,11 +138,7 @@ Plug 'tpope/vim-surround'
 
 Plug 'gcmt/wildfire.vim'
 
-Plug 'nvim-treesitter/nvim-treesitter'
-
 Plug 'tpope/vim-commentary'
-
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 
 Plug 'ggandor/leap.nvim'
 
@@ -266,19 +236,6 @@ nnoremap <silent> <space>y  :<C-u>CocList -A --normal yank<cr>
 nmap tt <Cmd>CocCommand explorer --toggle<CR>
 
 
-" ==================== FZF ====================
-let g:fzf_preview_window = 'right:40%'
-let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
-
-command! BD call fzf#run(fzf#wrap({
-  \ 'options': '--multi --reverse'
-\ }))
-
-noremap <c-d> :BD<CR>
-
-let g:fzf_layout = { 'window': { 'width': 0.75, 'height': 0.75 } }
-
-
 " ==================== EasyAlign ====================
 " Start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <Plug>(EasyAlign)
@@ -296,33 +253,11 @@ let g:vista#renderer#enable_icon = 1
 let g:wildfire_objects = ["i'", 'i"', "i)", "i]", "i}", "ip", "it", "iw", "i>"]
 
 
-" ==================== nvim-treesitter ====================
-if g:nvim_plugins_installation_completed == 1
-lua <<EOF
-require'nvim-treesitter.configs'.setup {
-	ensure_installed = {"c", "cpp", "python", "bash"},
-	highlight = {
-		enable = true,
-	},
-	indent = {
-		enable = true
-	}
-}
-EOF
-endif
-
-
-" ==================== markdown-preview ====================
-let g:mkdp_browser = '/usr/bin/google-chrome-stable'
-function OpenMarkdownPreview (url)
-  execute "silent ! google-chrome-stable --new-window " . a:url
-endfunction
-let g:mkdp_browserfunc = 'OpenMarkdownPreview'
-
-
 " ==================== startify ====================
-let g:startify_bookmarks = [{'v' : "~/.config/nvim/init.vim"}, {'i' : "~/.config/i3/config"}]
+let g:startify_bookmarks = [{'v' : "~/.config/nvim/init.vim"}]
 let g:startify_lists = [
       \ { 'type': 'files',     'header': ['   MRU']            },
       \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
       \ ]
+
+" ==================== leap.nvim ====================
