@@ -6,7 +6,7 @@
 
     "modules-left": ["wlr/workspaces"],
     // "modules-center": ["hyprland/window"],
-    "modules-right": ["network", "cpu", "memory", "pulseaudio", "backlight", "battery", "clock", "tray"],
+    "modules-right": ["network", "memory", "cpu", "pulseaudio", "backlight", "battery", "clock", "tray"],
 
     "wlr/workspaces": {
         "on-click": "activate",
@@ -32,10 +32,12 @@
     },
     "cpu": {
         "format": "{usage}% ",
+        "interval": 1,
         "tooltip": false
     },
     "memory": {
-        "format": "{}% "
+        "format": "{}% ",
+        "interval": 1
     },
     "backlight": {
         "format": "{percent}% {icon}",

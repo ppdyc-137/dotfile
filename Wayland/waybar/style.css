@@ -56,15 +56,15 @@
   margin-right: 0.5rem;
 }
 
-#cpu {
-    color: @peach;
+#memory {
+    color: @lavender;
     border-radius: 1rem 0 0 1rem;
     margin-right: 0;
     padding-right: 0.5rem;
 }
 
-#memory {
-    color: @lavender;
+#cpu {
+    color: @peach;
     border-radius: 0 1rem 1rem 0;
     margin-right: 0.5rem;
     padding-left: 0.5rem;
