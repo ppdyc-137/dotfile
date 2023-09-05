@@ -19,7 +19,7 @@ video_default	= [
 ]
 
 text_default	= [
-	{ command = "nvim" },
+	{ command = "vim" },
 	{ command = "bat", args = [ "--paging=always" ] },
 ]
 

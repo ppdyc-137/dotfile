@@ -2,13 +2,7 @@
 if empty(glob($HOME.'/.config/nvim/autoload/plug.vim'))
 	silent !curl -fLo $HOME/.config/nvim/autoload/plug.vim --create-dirs
 				\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-	autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-endif
-
-let g:nvim_plugins_installation_completed=1
-if empty(glob($HOME.'/.local/share/nvim/plugged/wildfire.vim/autoload/wildfire.vim'))
-	let g:nvim_plugins_installation_completed=0
-	autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+	" autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
 " ==================== Editor behavior ====================
@@ -132,15 +126,11 @@ Plug 'github/copilot.vim'
 
 Plug 'junegunn/vim-easy-align'
 
-Plug 'liuchengxu/vista.vim'
-
 Plug 'tpope/vim-surround'
 
 Plug 'gcmt/wildfire.vim'
 
 Plug 'tpope/vim-commentary'
-
-Plug 'ggandor/leap.nvim'
 
 Plug 'mhinz/vim-startify'
 call plug#end()
@@ -244,11 +234,6 @@ xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlig)
 
 
-" ==================== Vista.vim ====================
-nmap tv :Vista!!<CR>
-let g:vista#renderer#enable_icon = 1
-
-
 " ==================== wildfire.vim ====================
 let g:wildfire_objects = ["i'", 'i"', "i)", "i]", "i}", "ip", "it", "iw", "i>"]
 
@@ -260,4 +245,3 @@ let g:startify_lists = [
       \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
       \ ]
 
-" ==================== leap.nvim ====================
