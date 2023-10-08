@@ -43,7 +43,6 @@ set lazyredraw
 set visualbell
 silent !mkdir -p $HOME/.config/nvim/tmp/backup
 silent !mkdir -p $HOME/.config/nvim/tmp/undo
-"silent !mkdir -p $HOME/.config/nvim/tmp/sessions
 set backupdir=$HOME/.config/nvim/tmp/backup,.
 set directory=$HOME/.config/nvim/tmp/backup,.
 if has('persistent_undo')
@@ -63,7 +62,6 @@ noremap <LEADER><CR> :noh<CR>
 map s :<nop>
 map S :w<CR>
 map Q :q<CR>
-" map R :source $MYVIMRC<CR>
 
 map J 5j
 map K 5k
