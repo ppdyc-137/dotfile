@@ -1,13 +1,13 @@
 @import "mocha.css";
 
 * {
-  font-family: Meslo Nerd Font;
+  font-family: MesloLGS Nerd Font;
   font-size: 14px;
 }
 
 #waybar {
-  /* background: transparent; */
-  background-color: @surface0;
+  background: transparent;
+  /* background-color: @surface0; */
   color: @text;
   margin: 0;
 }
@@ -58,16 +58,16 @@
 
 #memory {
     color: @lavender;
-    border-radius: 1rem 0 0 1rem;
-    margin-right: 0;
-    padding-right: 0.5rem;
+    border-radius: 0 1rem 1rem 0;
+    margin-right: 0.5rem;
+    padding-left: 0.5rem;
 }
 
 #cpu {
     color: @peach;
-    border-radius: 0 1rem 1rem 0;
-    margin-right: 0.5rem;
-    padding-left: 0.5rem;
+    border-radius: 1rem 0 0 1rem;
+    margin-right: 0;
+    padding-right: 0.5rem;
 }
 
 #pulseaudio {
