@@ -1,0 +1,14 @@
+configuration {
+    modi:              "drun";
+    display-drun:      " ";
+    show-icons:        true;
+    icon-theme:        "Tela-circle-dracula";
+	font:              "MesloLGS Nerd Font";
+	terminal:          "st";
+	run-shell-command: "fish";
+	kb-remove-to-eol:  "";
+	kb-accept-entry:   "Return";
+	kb-row-up:         "Control+k,Up";
+	kb-row-down:       "Control+j,Down";
+}
+@theme "/usr/share/rofi/themes/arthur.rasi"
