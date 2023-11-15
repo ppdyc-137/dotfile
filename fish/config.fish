@@ -1,7 +1,7 @@
 if status is-interactive
     # Commands to run in interactive sessions can go here
 
-    set -gx EDITOR vim
+    set -gx EDITOR nvim
 
     # FZF
     set -x FZF_DEFAULT_OPTS '--exact'
@@ -17,11 +17,12 @@ if status is-interactive
     alias q="exit"
     alias clr="clear"
 
-    alias vi="vim"
-    alias df="duf"
-    alias cat="bat"
-    alias du="gdu"
+    alias vi="nvim"
+    alias vi="nvim"
     alias top="htop"
+    # alias df="duf"
+    # alias cat="bat"
+    # alias du="gdu"
 
     alias p="pfetch"
     alias n="neofetch"

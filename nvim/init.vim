@@ -151,7 +151,6 @@ let g:coc_global_extensions = [
 	\ 'coc-json',
 	\ 'coc-yank',
 	\ 'coc-vimlsp',
-	\ 'coc-explorer',
 	\ 'coc-marketplace'
 	\]
 
