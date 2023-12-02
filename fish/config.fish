@@ -18,7 +18,7 @@ if status is-interactive
     alias clr="clear"
 
     alias vi="nvim"
-    alias vi="nvim"
+    alias vim="nvim"
     alias top="htop"
     # alias df="duf"
     # alias cat="bat"

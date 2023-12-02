@@ -148,9 +148,6 @@ set background=dark
 
 let g:coc_global_extensions = [
 	\ 'coc-git',
-	\ 'coc-json',
-	\ 'coc-yank',
-	\ 'coc-vimlsp',
 	\ 'coc-marketplace'
 	\]
 
