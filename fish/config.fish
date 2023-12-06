@@ -7,6 +7,9 @@ if status is-interactive
     set -x FZF_DEFAULT_OPTS '--exact'
     set -x FZF_DEFAULT_COMMAND 'fd --type f -H'
 
+    set -x LESS '-R --use-color -Dd+r$Du+b$'
+    set -x MANPAGER "sh -c 'col -bx | bat -l man -p'"
+
     # Pure prompt
     # set -u pure_show_system_time true
     # set -u pure_enable_git true
@@ -20,8 +23,8 @@ if status is-interactive
     alias vi="nvim"
     alias vim="nvim"
     alias top="htop"
+    alias cat="bat -p"
     # alias df="duf"
-    # alias cat="bat"
     # alias du="gdu"
 
     alias p="pfetch"
