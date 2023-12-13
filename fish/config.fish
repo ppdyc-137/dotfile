@@ -32,4 +32,8 @@ if status is-interactive
     alias cw="cowsay"
     alias ra="joshuto"
 
+    if test -z $TMUX
+        tmux new-session
+    end
+
 end
