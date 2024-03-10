@@ -6,17 +6,16 @@ if empty(glob($HOME.'/.config/nvim/autoload/plug.vim'))
 endif
 
 " ==================== Editor behavior ====================
-"set clipboard=unnamedplus
-let &t_ut=''
+set tabstop     =4
+set softtabstop =4
+set shiftwidth  =4
+set expandtab
+
 set autochdir
 set exrc
 set secure
 set number
 set cursorline
-set expandtab
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
 " set autoindent
 set list
 set listchars=tab:\|\ ,trail:▫
@@ -223,8 +222,16 @@ if has('nvim-0.4.0') || has('patch-8.2.0750')
   vnoremap <silent><nowait><expr> <C-k> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-k>"
 endif
 
+nmap <silent> <A-o> <Cmd>CocCommand clangd.switchSourceHeader<cr>
+
 " coc-yank
 nnoremap <silent> <space>y  :<C-u>CocList -A --normal yank<cr>
+" Show all diagnostics
+nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
+" Find symbol of current document
+nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
+" Search workspace symbols
+nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
 
 " coc-explorer
 nmap tt <Cmd>CocCommand explorer --toggle<CR>
