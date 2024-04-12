@@ -1,0 +1,9 @@
+[manager]
+prepend_keymap = [
+    { on = [ "<Esc>" ], run = "escape --all",             desc = "Exit visual mode, clear selected, or cancel search" },
+]
+
+[[input.prepend_keymap]]
+on   = [ "<Esc>" ]
+run  = "close"
+desc = "Cancel input"
