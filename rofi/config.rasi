@@ -3,8 +3,7 @@ configuration {
     display-drun:      " ";
     show-icons:        true;
     icon-theme:        "Tela-circle-dracula";
-	font:              "MesloLGS Nerd Font";
-	terminal:          "st";
+	font:              "FiraCode Nerd Font";
 	run-shell-command: "fish";
 	kb-remove-to-eol:  "";
 	kb-accept-entry:   "Return";

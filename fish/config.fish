@@ -31,10 +31,12 @@ if status is-interactive
     alias p="pfetch"
     alias n="neofetch"
     alias cw="cowsay"
-    alias ra="joshuto"
+    alias ra="yazi"
 
-    if test -z $TMUX
-        tmux new-session
-    end
+    zoxide init --cmd cd fish | source
+
+    # if test -z $TMUX
+    #     tmux new-session
+    # end
 
 end

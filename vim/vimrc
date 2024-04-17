@@ -40,7 +40,6 @@ noremap <LEADER><CR> :noh<CR>
 map s :<nop>
 map S :w<CR>
 map Q :q<CR>
-map R :source $MYVIMRC<CR>
 
 map J 5j
 map K 5k
@@ -58,22 +57,6 @@ map <LEADER>h <C-w>h
 map <LEADER>j <C-w>j
 map <LEADER>k <C-w>k
 
-map <up> :res+5<CR>
-map <down> :res-5<CR>
-map <left> :vertical res-5<CR>
-map <right> :vertical res+5<CR>
-
-" tabe
-map <C-n> :tabe<CR>
-map <C-j> :tabnext<CR>
-map <C-k> :-tabnext<CR>
-
-" Copy to system clipboard
-vnoremap Y "+y
-
-" Opening a terminal window
-noremap <LEADER>t :vsplit<CR>:term<CR>
-
 call plug#begin()
 
 " colorscheme
@@ -82,7 +65,6 @@ Plug 'morhetz/gruvbox'
 " statusline
 Plug 'vim-airline/vim-airline'
 
-Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 
 call plug#end()
