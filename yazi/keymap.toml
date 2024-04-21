@@ -1,6 +1,7 @@
 [manager]
 prepend_keymap = [
-    { on = [ "<Esc>" ], run = "escape --all",             desc = "Exit visual mode, clear selected, or cancel search" },
+    { on = [ "<Esc>" ], run = "escape --all",              desc = "Exit visual mode, clear selected, or cancel search" },
+    { on = [ "l" ],     run = "plugin --sync smart-enter", desc = "Enter the child directory, or open the file" },
 ]
 
 [[input.prepend_keymap]]
