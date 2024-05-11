@@ -107,6 +107,7 @@ Plug 'tpope/vim-commentary'
 Plug 'mhinz/vim-startify'
 
 Plug 'farmergreg/vim-lastplace'
+
 vim.call('plug#end')
 
 -- ======================= Colorscheme ============================
@@ -234,7 +235,10 @@ vim.g.wildfire_objects = {"i'", 'i"', "i)", "i]", "i}", "ip", "it", "iw", "i>"}
 
 
 -- ==================== startify ====================
-vim.g.startify_bookmarks = {{ v= "~/.config/nvim/init.lua"}}
+vim.g.startify_bookmarks = {
+    { v= "~/.config/nvim/init.lua"},
+    { f= "~/.config/fish/config.fish"},
+}
 vim.g.startify_lists = {
        { type= 'files',     header= {'   MRU'}            },
        { type= 'bookmarks', header= {'   Bookmarks'}      },

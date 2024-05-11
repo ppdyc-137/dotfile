@@ -1,0 +1,55 @@
+#!/bin/sh
+
+# https://github.com/jabirali/tmux-tilish/blob/master/tilish.tmux
+
+bind_switch() {
+    tmux bind -n "$1" if-shell "tmux new-window -t $2" "" "select-window -t $2"
+}
+
+bind_move() {
+    tmux bind -n "$1" if-shell "tmux join-pane -t $2" "" \
+        "new-window -t $2; join-pane -t $2; select-pane -t top-left; kill-pane"
+}
+
+bind_switch "M-1" 1
+bind_switch "M-2" 2
+bind_switch "M-3" 3
+bind_switch "M-4" 4
+bind_switch "M-5" 5
+bind_switch "M-6" 6
+bind_switch "M-7" 7
+bind_switch "M-8" 8
+bind_switch "M-9" 9
+bind_switch "M-0" 10
+
+bind_move "M-!" 1
+bind_move "M-@" 2
+bind_move "M-#" 3
+bind_move "M-$" 4
+bind_move "M-%" 5
+bind_move "M-^" 6
+bind_move "M-&" 7
+bind_move "M-*" 8
+bind_move "M-(" 9
+bind_move "M-)" 10
+
+# Switch to pane via Alt + hjkl.
+tmux bind -n M-h select-pane -L
+tmux bind -n M-j select-pane -D
+tmux bind -n M-k select-pane -U
+tmux bind -n M-l select-pane -R
+
+# Move a pane via Alt + Shift + hjkl.
+tmux bind -n M-H swap-pane -s '{left-of}'
+tmux bind -n M-J swap-pane -s '{down-of}'
+tmux bind -n M-K swap-pane -s '{up-of}'
+tmux bind -n M-L swap-pane -s '{right-of}'
+
+tmux bind k split-window -vb -c "#{pane_current_path}"
+tmux bind j split-window -v -c "#{pane_current_path}"
+tmux bind h split-window -hb -c "#{pane_current_path}"
+tmux bind l split-window -h -c "#{pane_current_path}"
+
+# maximize
+tmux bind -n M-f resize-pane -Z
+
