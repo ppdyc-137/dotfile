@@ -1,7 +1,8 @@
 {
-	"coc.preferences.extensionUpdateCheck": "daily",
-	"suggest.noselect": true,
-	"suggest.enablePreselect": false,
-	"explorer.icon.enableNerdfont": true,
-	"explorer.icon.source": "builtin"
+    "coc.preferences.extensionUpdateCheck": "daily",
+    "suggest.noselect": true,
+    "suggest.enablePreselect": false,
+    "explorer.icon.enableNerdfont": true,
+    "explorer.icon.source": "builtin"
+    "inlayHint.enable": false,
 }

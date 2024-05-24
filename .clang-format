@@ -1,7 +1,15 @@
 BasedOnStyle: LLVM
 IndentWidth: 4
 UseTab: Never
-BreakBeforeBraces: Linux
+BreakBeforeBraces: Custom
+BraceWrapping:
+  AfterCaseLabel: false
+  AfterClass: false
+  AfterControlStatement: Never
+  AfterFunction: true
+  AfterNamespace: false
 AllowShortIfStatementsOnASingleLine: false
 IndentCaseLabels: false
 PointerAlignment: Left
+ColumnLimit: 200
+IndentAccessModifiers: false
