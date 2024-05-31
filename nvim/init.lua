@@ -85,7 +85,7 @@ end)
 -- ==================== Install Plugins with Vim-Plug ====================
 vim.call('plug#begin')
 
-Plug 'morhetz/gruvbox'
+Plug 'ellisonleao/gruvbox.nvim'
 Plug 'sainnhe/edge'
 
 Plug 'vim-airline/vim-airline'
@@ -111,13 +111,19 @@ Plug 'farmergreg/vim-lastplace'
 vim.call('plug#end')
 
 -- ======================= Colorscheme ============================
--- set.termguicolors = true
--- vim.o.background = 'light'
--- vim.g.edge_better_performance = 1
--- vim.cmd.colorscheme 'edge'
+set.termguicolors = true
+function set_backgroud(bg)
+    if bg == "dark" then
+        vim.o.background = 'dark'
+        vim.cmd.colorscheme 'gruvbox'
+    else
+        vim.o.background = 'light'
+        vim.g.edge_better_performance = 1
+        vim.cmd.colorscheme 'edge'
+    end
+end
 
-vim.o.background = 'dark'
-vim.cmd.colorscheme 'gruvbox'
+set_backgroud("dark")
 
 -- ======================= coc ============================
 -- Autocomplete
