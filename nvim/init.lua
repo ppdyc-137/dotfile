@@ -51,8 +51,10 @@ vim.g.mapleader = ' '
 keyset('', '<LEADER><CR>', '<Cmd>noh<CR>', {noremap = true})
 
 keyset('', 's', '<Nop>')
+keyset('', 'q', '<Nop>')
 keyset('', 'S', '<Cmd>w<CR>')
 keyset('', 'Q', '<Cmd>q<CR>')
+keyset('', 'W', '<Cmd>bdelete<CR>')
 
 keyset('', 'J', '5j')
 keyset('', 'K', '5k')
@@ -92,9 +94,9 @@ Plug 'vim-airline/vim-airline'
 
 Plug 'ryanoasis/vim-devicons'
 
-Plug('neoclide/coc.nvim', { branch= 'release' })
+Plug('neoclide/coc.nvim', { ['branch'] = 'release' })
 
-Plug 'github/copilot.vim'
+-- Plug 'github/copilot.vim'
 
 Plug 'junegunn/vim-easy-align'
 
@@ -107,6 +109,14 @@ Plug 'tpope/vim-commentary'
 Plug 'mhinz/vim-startify'
 
 Plug 'farmergreg/vim-lastplace'
+
+Plug('akinsho/bufferline.nvim', { ['tag'] = '*' })
+
+Plug('nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate'})
+
+Plug 'nvim-lua/plenary.nvim'
+Plug('nvim-telescope/telescope.nvim', { ['tag'] = '0.1.6' })
+Plug('nvim-telescope/telescope-fzf-native.nvim', { ['do'] = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' })
 
 vim.call('plug#end')
 
@@ -157,6 +167,7 @@ keyset("n", "g]", "<Plug>(coc-diagnostic-next)", {silent = true})
 
 -- GoTo code navigation
 keyset("n", "gd", "<Plug>(coc-definition)", {silent = true})
+keyset("n", "gD", "<CMD>vsplit<CR><Plug>(coc-definition)", {silent = true})
 keyset("n", "gy", "<Plug>(coc-type-definition)", {silent = true})
 keyset("n", "gi", "<Plug>(coc-implementation)", {silent = true})
 keyset("n", "gr", "<Plug>(coc-references)", {silent = true})
@@ -250,3 +261,40 @@ vim.g.startify_lists = {
        { type= 'bookmarks', header= {'   Bookmarks'}      },
 }
 
+
+-- ==================== bufferline ====================
+require("bufferline").setup{
+    options = {
+        numbers = "ordinal",
+        diagnostics = "coc",
+        offsets = {
+            {
+                filetype = "coc-explorer",
+                text = "File Explorer",
+                text_align = "center",
+                separator = true,
+            }
+        },
+    }
+}
+
+-- ==================== telescope ====================
+require('telescope').setup{
+    defaults = {
+        prompt_prefix = ' ',
+        initial_mode = "normal",
+        mappings = {
+            n = {
+                ["l"] = "select_default",
+                ["q"] = "close",
+            }
+        }
+    },
+}
+local builtin = require('telescope.builtin')
+vim.keymap.set('n', 'ff', builtin.find_files, {})
+vim.keymap.set('n', 'fg', builtin.live_grep, {})
+vim.keymap.set('n', 'fb', builtin.buffers, {})
+
+-- ==================== treesitter ====================
+require'nvim-treesitter.configs'.setup{highlight={enable=true}}
