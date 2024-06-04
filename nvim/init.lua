@@ -8,9 +8,7 @@ set.tabstop = 4
 set.softtabstop = 4
 set.shiftwidth = 4
 set.expandtab = true
-set.autochdir = true
-set.exrc = true
-set.secure = true
+set.autochdir = false
 set.number = true
 set.cursorline = true
 set.list = true
@@ -22,20 +20,17 @@ set.viewoptions = 'cursor,folds,slash,unix'
 set.wrap = true
 set.textwidth = 0
 set.indentexpr = ''
-set.foldmethod = 'indent'
-set.foldlevel = 99
-set.foldenable = true
-set.formatoptions:remove('tc')
+-- set.formatoptions:remove('tc')
 set.splitright = true
 set.splitbelow = true
 set.showmode = false
 set.ignorecase = true
 set.smartcase = true
-set.shortmess:append('c')
+-- set.shortmess:append('c')
 set.inccommand = 'split'
 set.completeopt = 'longest,noinsert,menuone,noselect,preview'
-set.lazyredraw = true
-set.visualbell = true
+-- set.lazyredraw = true
+-- set.visualbell = true
 vim.opt.backupdir = os.getenv("HOME") ..'/.config/nvim/tmp/backup,.'
 vim.opt.directory = os.getenv("HOME") ..'/.config/nvim/tmp/backup,.'
 if vim.fn.has('persistent_undo') then
@@ -117,6 +112,10 @@ Plug('nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate'})
 Plug 'nvim-lua/plenary.nvim'
 Plug('nvim-telescope/telescope.nvim', { ['tag'] = '0.1.6' })
 Plug('nvim-telescope/telescope-fzf-native.nvim', { ['do'] = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' })
+
+-- Plug 'ahmedkhalf/project.nvim'
+-- Plug 'nvim-telescope/telescope-project.nvim'
+Plug 'natecraddock/workspaces.nvim'
 
 vim.call('plug#end')
 
@@ -278,6 +277,17 @@ require("bufferline").setup{
     }
 }
 
+keyset('n', '<LEADER>1', "<CMD>BufferLineGoToBuffer 1<CR>", { noremap = true, silent = true })
+keyset('n', '<LEADER>2', "<CMD>BufferLineGoToBuffer 2<CR>", { noremap = true, silent = true })
+keyset('n', '<LEADER>3', "<CMD>BufferLineGoToBuffer 3<CR>", { noremap = true, silent = true })
+keyset('n', '<LEADER>4', "<CMD>BufferLineGoToBuffer 4<CR>", { noremap = true, silent = true })
+keyset('n', '<LEADER>5', "<CMD>BufferLineGoToBuffer 5<CR>", { noremap = true, silent = true })
+keyset('n', '<LEADER>6', "<CMD>BufferLineGoToBuffer 6<CR>", { noremap = true, silent = true })
+keyset('n', '<LEADER>7', "<CMD>BufferLineGoToBuffer 7<CR>", { noremap = true, silent = true })
+keyset('n', '<LEADER>8', "<CMD>BufferLineGoToBuffer 8<CR>", { noremap = true, silent = true })
+keyset('n', '<LEADER>9', "<CMD>BufferLineGoToBuffer 9<CR>", { noremap = true, silent = true })
+keyset('n', '<LEADER>0', "<CMD>BufferLineGoToBuffer 10<CR>", { noremap = true, silent = true })
+
 -- ==================== telescope ====================
 require('telescope').setup{
     defaults = {
@@ -292,9 +302,18 @@ require('telescope').setup{
     },
 }
 local builtin = require('telescope.builtin')
-vim.keymap.set('n', 'ff', builtin.find_files, {})
-vim.keymap.set('n', 'fg', builtin.live_grep, {})
-vim.keymap.set('n', 'fb', builtin.buffers, {})
+keyset('n', 'ff', builtin.find_files, {})
+keyset('n', 'fg', builtin.live_grep, {})
+keyset('n', 'fb', builtin.buffers, {})
 
 -- ==================== treesitter ====================
 require'nvim-treesitter.configs'.setup{highlight={enable=true}}
+
+-- ==================== project ====================
+require("workspaces").setup({
+    hooks = {
+        open = { "Telescope find_files" },
+    }
+})
+require'telescope'.load_extension("workspaces")
+keyset('n', '<C-p>', "<CMD>Telescope workspaces<CR>", { noremap = true, silent = true })
