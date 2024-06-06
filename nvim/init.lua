@@ -31,11 +31,11 @@ set.inccommand = 'split'
 set.completeopt = 'longest,noinsert,menuone,noselect,preview'
 -- set.lazyredraw = true
 -- set.visualbell = true
-vim.opt.backupdir = os.getenv("HOME") ..'/.config/nvim/tmp/backup,.'
-vim.opt.directory = os.getenv("HOME") ..'/.config/nvim/tmp/backup,.'
+vim.opt.backupdir = os.getenv("HOME") ..'/.tmp/nvim/backup,.'
+vim.opt.directory = os.getenv("HOME") ..'/.tmp/nvim/backup,.'
 if vim.fn.has('persistent_undo') then
     vim.opt.undofile = true
-    vim.opt.undodir = os.getenv("HOME") ..'/.config/nvim/tmp/undo,.'
+    vim.opt.undodir = os.getenv("HOME") ..'/.tmp/nvim/undo,.'
 end
 vim.opt.updatetime = 100
 vim.opt.virtualedit = 'block'
@@ -113,26 +113,24 @@ Plug 'nvim-lua/plenary.nvim'
 Plug('nvim-telescope/telescope.nvim', { ['tag'] = '0.1.6' })
 Plug('nvim-telescope/telescope-fzf-native.nvim', { ['do'] = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' })
 
--- Plug 'ahmedkhalf/project.nvim'
--- Plug 'nvim-telescope/telescope-project.nvim'
 Plug 'natecraddock/workspaces.nvim'
 
 vim.call('plug#end')
 
 -- ======================= Colorscheme ============================
 set.termguicolors = true
-function set_backgroud(bg)
-    if bg == "dark" then
-        vim.o.background = 'dark'
-        vim.cmd.colorscheme 'gruvbox'
-    else
+local function set_backgroud(bg)
+    if bg == "light" then
         vim.o.background = 'light'
         vim.g.edge_better_performance = 1
         vim.cmd.colorscheme 'edge'
+    else
+        vim.o.background = 'dark'
+        vim.cmd.colorscheme 'gruvbox'
     end
 end
 
-set_backgroud("dark")
+set_backgroud(os.getenv("THEME"))
 
 -- ======================= coc ============================
 -- Autocomplete
