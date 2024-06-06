@@ -1,3 +1,11 @@
 __pycache__
 nvim/tmp
 .vim/plugged
+
+#fish
+fish/*
+!fish/config.fish
+!fish/fisher.sh
+
+#yazi
+yazi/theme.toml
