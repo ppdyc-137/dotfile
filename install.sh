@@ -1,29 +1,44 @@
 #!/bin/bash
+set -e
 
-info() { echo -e "\033[32m\033[01m$*\033[0m"; }   # 绿色
+info() { echo -e "\033[32m\033[01m$*\033[0m"; }   # green
+error() { echo -e "\033[31m\033[01m$*\033[0m"; }   # red
+
+install_config() {
+    target=$PWD/$1
+    link_name=$HOME/.config/$1
+
+    info "ln $link_name -> $target"
+    if [ ! -d $target ]; then
+        error "$target does not exists!"
+        return
+    fi
+    if [ -d $link_name ]; then
+        error "$link_name already exists!"
+        return
+    fi
+
+    # ln -s $PWD/$1 $HOME/.config/$1
+}
 
 # Install software
-sudo pacman -S --needed base-devel fish python tmux neovim htop nodejs npm bat fd ripgrep zoxide
+# sudo pacman -S --needed base-devel fish python tmux neovim htop nodejs npm bat fd ripgrep zoxide yazi
 
-# copy config
-info "copy config"
-cp -r fish ~/.config/
-cp -r tmux ~/.config/
-cp -r nvim ~/.config/
-cp -r yazi ~/.config/
-
-# fish
-info "install fisher"
-fish fish/fisher.sh
+# install config
+CONFIGS=("fish" "nvim" "tmux" "yazi")
+for config in "${CONFIGS[@]}"; do
+    install_config $config
+done
 
 # yay
-info "install yay"
-git clone https://aur.archlinux.org/yay-bin.git && cd yay-bin && makepkg -si
-info "install joshuto"
-yay -S joshuto-bin
+info "Install yay"
+if command -v yay >/dev/null 2>&1; then
+    echo "yay is already installed"
+else
+    git clone https://aur.archlinux.org/yay-bin.git && makepkg -D yay-bin -si && rm -rf yay-bin
+fi
 
-# tmux
-info "install tmux plugin manager"
-git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-info "Press prefix + I to install plugins"
+# fish
+info "Install fisher"
+fish fish/fisher.sh
 
