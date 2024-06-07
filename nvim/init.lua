@@ -31,11 +31,19 @@ set.inccommand = 'split'
 set.completeopt = 'longest,noinsert,menuone,noselect,preview'
 -- set.lazyredraw = true
 -- set.visualbell = true
-vim.opt.backupdir = os.getenv("HOME") ..'/.tmp/nvim/backup,.'
-vim.opt.directory = os.getenv("HOME") ..'/.tmp/nvim/backup,.'
+backupdir = os.getenv("HOME") ..'/.tmp/nvim/backup'
+undodir = os.getenv("HOME") ..'/.tmp/nvim/undo'
+if vim.fn.isdirectory(backupdir) == 0 then
+	vim.fn.mkdir(backupdir, "p", "0o700")
+end
+if vim.fn.isdirectory(undodir) == 0 then
+	vim.fn.mkdir(undodir, "p", "0o700")
+end
+vim.opt.backupdir = backupdir..',.'
+vim.opt.directory = backupdir..',.'
 if vim.fn.has('persistent_undo') then
     vim.opt.undofile = true
-    vim.opt.undodir = os.getenv("HOME") ..'/.tmp/nvim/undo,.'
+    vim.opt.undodir = undodir..',.'
 end
 vim.opt.updatetime = 100
 vim.opt.virtualedit = 'block'
