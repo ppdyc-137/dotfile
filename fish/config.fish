@@ -8,7 +8,9 @@ if status is-interactive
     set -x FZF_DEFAULT_OPTS '--exact'
     set -x FZF_DEFAULT_COMMAND 'fd --type f -H'
 
-    set -x MANPAGER "bat -l man -p"
+    function man
+        /usr/bin/man $argv | bat -l man -p
+    end
 
     alias l="ls -l"
     alias la="ls -la"
