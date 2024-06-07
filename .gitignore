@@ -5,7 +5,7 @@ nvim/tmp
 #fish
 fish/*
 !fish/config.fish
-!fish/fisher.sh
+!fish/fisher.fish
 
 #yazi
 yazi/theme.toml

@@ -40,7 +40,7 @@ fi
 
 # fish
 info "Install fisher"
-fish fish/fisher.sh
+fish fish/fisher.fish
 
 # tmux
 info "Install tpm"
