@@ -107,7 +107,7 @@ Plug 'tpope/vim-surround'
 
 Plug 'gcmt/wildfire.vim'
 
-Plug 'tpope/vim-commentary'
+Plug 'numToStr/Comment.nvim'
 
 Plug 'mhinz/vim-startify'
 
@@ -323,3 +323,6 @@ require("workspaces").setup({
 })
 require'telescope'.load_extension("workspaces")
 keyset('n', '<C-p>', "<CMD>Telescope workspaces<CR>", { noremap = true, silent = true })
+
+-- ==================== comment ====================
+require('Comment').setup()
