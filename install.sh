@@ -18,7 +18,7 @@ install_config() {
         return
     fi
 
-    # ln -s $PWD/$1 $HOME/.config/$1
+    ln -s $PWD/$1 $HOME/.config/$1
 }
 
 # Install software
@@ -42,3 +42,7 @@ fi
 info "Install fisher"
 fish fish/fisher.sh
 
+# tmux
+info "Install tpm"
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+info "Press prefix + I to install plugins"

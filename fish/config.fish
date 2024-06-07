@@ -28,7 +28,7 @@ if status is-interactive
         source ~/.config/fish/platform-specific.fish
     end
 
-    if test -z $TMUX && ! fish_is_root_user && test -z $NVIM && test -z $VIM && test "$TERM_PROGRAM" != "vscode"
+    if test -z $TMUX && ! fish_is_root_user && test -z $NVIM && test -z $VIM && test "$TERM_PROGRAM" != "vscode" && ! test -z $ENABLE_TMUX
         tmux new-session
     end
 
