@@ -9,3 +9,6 @@ fish/*
 
 #yazi
 yazi/theme.toml
+
+#tmux
+tmux/plugins
