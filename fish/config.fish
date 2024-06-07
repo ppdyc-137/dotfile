@@ -8,8 +8,7 @@ if status is-interactive
     set -x FZF_DEFAULT_OPTS '--exact'
     set -x FZF_DEFAULT_COMMAND 'fd --type f -H'
 
-    set -x LESS '-R --use-color -Dd+r$Du+b$'
-    set -x MANPAGER "sh -c 'col -bx | bat -l man -p'"
+    set -x MANPAGER "bat -l man -p"
 
     alias l="ls -l"
     alias la="ls -la"
