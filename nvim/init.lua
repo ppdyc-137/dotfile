@@ -103,8 +103,6 @@ Plug('neoclide/coc.nvim', { ['branch'] = 'release' })
 
 Plug 'junegunn/vim-easy-align'
 
-Plug 'tpope/vim-surround'
-
 Plug 'gcmt/wildfire.vim'
 
 Plug 'numToStr/Comment.nvim'
@@ -112,8 +110,6 @@ Plug 'numToStr/Comment.nvim'
 Plug 'mhinz/vim-startify'
 
 Plug 'farmergreg/vim-lastplace'
-
-Plug('akinsho/bufferline.nvim', { ['tag'] = '*' })
 
 Plug('nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate'})
 
@@ -206,10 +202,14 @@ keyset("n", "<leader>rn", "<Plug>(coc-rename)", {silent = true})
 keyset("x", "<leader>f", "<Plug>(coc-format-selected)", {silent = true})
 keyset("n", "<leader>f", "<Plug>(coc-format-selected)", {silent = true})
 
--- Remap keys for apply refactor code actions.
-keyset("n", "<leader>re", "<Plug>(coc-codeaction-refactor)", { silent = true })
-keyset("x", "<leader>r", "<Plug>(coc-codeaction-refactor-selected)", { silent = true })
-keyset("n", "<leader>r", "<Plug>(coc-codeaction-refactor-selected)", { silent = true })
+-- Apply the most preferred quickfix action on the current line.
+keyset("n", "<leader>qf", "<Plug>(coc-fix-current)", opts)
+
+-- Add `:Format` command to format current buffer
+vim.api.nvim_create_user_command("Format", "call CocAction('format')", {})
+
+-- Add `:OR` command for organize imports of the current buffer
+vim.api.nvim_create_user_command("OR", "call CocActionAsync('runCommand', 'editor.action.organizeImport')", {})
 
 -- Remap <C-j> and <C-k> to scroll float windows/popups
 ---@diagnostic disable-next-line: redefined-local
@@ -233,7 +233,7 @@ vim.opt.statusline:prepend("%{coc#status()}%{get(b:,'coc_current_function','')}"
 ---@diagnostic disable-next-line: redefined-local
 local opts = {silent = true, nowait = true}
 -- Show all diagnostics
-keyset("n", "<space>a", ":<C-u>CocList diagnostics<cr>", opts)
+keyset("n", "<space>d", ":<C-u>CocList diagnostics<cr>", opts)
 -- Find symbol of current document
 keyset("n", "<space>o", ":<C-u>CocList outline<cr>", opts)
 -- Search workspace symbols
@@ -265,34 +265,6 @@ vim.g.startify_lists = {
        { type= 'files',     header= {'   MRU'}            },
        { type= 'bookmarks', header= {'   Bookmarks'}      },
 }
-
-
--- ==================== bufferline ====================
-require("bufferline").setup{
-    options = {
-        numbers = "ordinal",
-        diagnostics = "coc",
-        offsets = {
-            {
-                filetype = "coc-explorer",
-                text = "File Explorer",
-                text_align = "center",
-                separator = true,
-            }
-        },
-    }
-}
-
-keyset('n', '<LEADER>1', "<CMD>BufferLineGoToBuffer 1<CR>", { noremap = true, silent = true })
-keyset('n', '<LEADER>2', "<CMD>BufferLineGoToBuffer 2<CR>", { noremap = true, silent = true })
-keyset('n', '<LEADER>3', "<CMD>BufferLineGoToBuffer 3<CR>", { noremap = true, silent = true })
-keyset('n', '<LEADER>4', "<CMD>BufferLineGoToBuffer 4<CR>", { noremap = true, silent = true })
-keyset('n', '<LEADER>5', "<CMD>BufferLineGoToBuffer 5<CR>", { noremap = true, silent = true })
-keyset('n', '<LEADER>6', "<CMD>BufferLineGoToBuffer 6<CR>", { noremap = true, silent = true })
-keyset('n', '<LEADER>7', "<CMD>BufferLineGoToBuffer 7<CR>", { noremap = true, silent = true })
-keyset('n', '<LEADER>8', "<CMD>BufferLineGoToBuffer 8<CR>", { noremap = true, silent = true })
-keyset('n', '<LEADER>9', "<CMD>BufferLineGoToBuffer 9<CR>", { noremap = true, silent = true })
-keyset('n', '<LEADER>0', "<CMD>BufferLineGoToBuffer 10<CR>", { noremap = true, silent = true })
 
 -- ==================== telescope ====================
 require('telescope').setup{
