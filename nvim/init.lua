@@ -99,7 +99,9 @@ Plug 'ryanoasis/vim-devicons'
 
 Plug('neoclide/coc.nvim', { ['branch'] = 'release' })
 
--- Plug 'github/copilot.vim'
+Plug 'github/copilot.vim'
+Plug 'nvim-lua/plenary.nvim'
+Plug('CopilotC-Nvim/CopilotChat.nvim', { ['branch'] = 'canary' })
 
 Plug 'junegunn/vim-easy-align'
 
@@ -298,3 +300,14 @@ keyset('n', '<C-p>', "<CMD>Telescope workspaces<CR>", { noremap = true, silent =
 
 -- ==================== comment ====================
 require('Comment').setup()
+
+-- ==================== copilot ====================
+vim.g.copilot_filetypes = { ['*'] = false, }
+keyset('i', "<M-i>", "<Plug>(copilot-suggest)", { silent = true })
+require("CopilotChat").setup{
+    window = {
+        layout = 'vertical',
+        width = 0.4,
+  },
+}
+keyset({ 'n', 'x' }, "<LEADER>a", "<CMD>CopilotChat<CR>", { silent = true })

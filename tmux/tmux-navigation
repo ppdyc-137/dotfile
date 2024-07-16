@@ -7,8 +7,9 @@ bind_switch() {
 }
 
 bind_move() {
-    tmux bind -n "$1" if-shell "tmux join-pane -t $2" "" \
-        "new-window -t $2; join-pane -t $2; select-pane -t top-left; kill-pane"
+    tmux bind -n "$1" if-shell "tmux join-pane -t :$2" "" "new-window -dt :$2; join-pane -t :$2; select-pane -t top-left; kill-pane" \\\;\
+        select-layout \\\;\
+        select-layout -E
 }
 
 bind_switch "M-1" 1
@@ -52,4 +53,8 @@ tmux bind l split-window -h -c "#{pane_current_path}"
 
 # maximize
 tmux bind -n M-f resize-pane -Z
+
+# switch layout
+tmux select-layout even-horizontal
+tmux bind o select-layout -n
 
