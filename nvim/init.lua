@@ -302,7 +302,7 @@ keyset('n', '<C-p>', "<CMD>Telescope workspaces<CR>", { noremap = true, silent =
 require('Comment').setup()
 
 -- ==================== copilot ====================
-vim.g.copilot_filetypes = { ['*'] = false, }
+-- vim.g.copilot_filetypes = { ['*'] = false, }
 keyset('i', "<M-i>", "<Plug>(copilot-suggest)", { silent = true })
 require("CopilotChat").setup{
     window = {
