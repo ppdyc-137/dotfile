@@ -22,7 +22,7 @@ install_config() {
 }
 
 # Install software
-# sudo pacman -S --needed base-devel fish python tmux neovim htop nodejs npm bat fd ripgrep zoxide yazi
+sudo pacman -S --needed base-devel fish python tmux neovim htop nodejs npm bat fd ripgrep zoxide yazi tree-sitter
 
 # install config
 CONFIGS=("fish" "nvim" "tmux" "yazi")
@@ -35,7 +35,7 @@ info "Install yay"
 if command -v yay >/dev/null 2>&1; then
     echo "yay is already installed"
 else
-    git clone https://aur.archlinux.org/yay-bin.git && makepkg -D yay-bin -si && rm -rf yay-bin
+    git clone https://aur.archlinux.org/yay.git && makepkg -D yay -si && rm -rf yay
 fi
 
 # fish

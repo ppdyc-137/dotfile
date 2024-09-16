@@ -32,4 +32,4 @@ imv
 grim swappy slurp
 
 ## misc
-nwg-look-bin
+nwg-look grub-customizer
