@@ -121,6 +121,10 @@ Plug('nvim-telescope/telescope-fzf-native.nvim', { ['do'] = 'cmake -S. -Bbuild -
 
 Plug 'natecraddock/workspaces.nvim'
 
+Plug 'folke/zen-mode.nvim'
+
+Plug('akinsho/toggleterm.nvim', { ['tag'] = '*'})
+
 vim.call('plug#end')
 
 -- ======================= Colorscheme ============================
@@ -311,3 +315,15 @@ require("CopilotChat").setup{
   },
 }
 keyset({ 'n', 'x' }, "<LEADER>a", "<CMD>CopilotChat<CR>", { silent = true })
+
+-- ==================== term ====================
+require("toggleterm").setup{
+    open_mapping = [[<c-`>]]
+}
+function _G.set_terminal_keymaps()
+  local opts = {buffer = 0}
+  vim.keymap.set('t', '<C-w>', [[<C-\><C-n><C-w>]], opts)
+end
+
+-- if you only want these mappings for toggle term use term://*toggleterm#* instead
+vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')

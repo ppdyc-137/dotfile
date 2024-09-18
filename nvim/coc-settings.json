@@ -5,5 +5,6 @@
     "explorer.icon.enableNerdfont": true,
     "explorer.icon.source": "builtin",
     "inlayHint.enable": false,
-    "clangd.path": "/usr/bin/clangd"
+    "clangd.path": "/usr/bin/clangd",
+    "semanticTokens.enable": true
 }

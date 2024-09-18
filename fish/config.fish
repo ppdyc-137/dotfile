@@ -20,7 +20,7 @@ if status is-interactive
     alias vim="nvim"
     alias top="htop"
     alias cat="bat -p"
-    alias n="neofetch"
+    alias n="fastfetch"
     alias ra="yazi"
 
     zoxide init --cmd cd fish | source
