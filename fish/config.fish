@@ -12,8 +12,8 @@ if status is-interactive
         /usr/bin/man $argv | bat -l man -p
     end
 
-    alias l="ls -l"
-    alias la="ls -la"
+    alias l="ls -al"
+    alias la="lazygit"
     alias q="exit"
     alias v="nvim"
     alias vi="nvim"
