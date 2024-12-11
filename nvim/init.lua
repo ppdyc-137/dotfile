@@ -266,6 +266,7 @@ vim.g.wildfire_objects = {"i'", 'i"', "i)", "i]", "i}", "ip", "it", "iw", "i>"}
 vim.g.startify_bookmarks = {
     { v= "~/.config/nvim/init.lua"},
     { f= "~/.config/fish/config.fish"},
+    { h= "~/.config/hypr/hyprland.conf"},
 }
 vim.g.startify_lists = {
        { type= 'files',     header= {'   MRU'}            },

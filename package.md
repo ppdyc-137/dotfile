@@ -11,7 +11,7 @@ fcitx5 fcitx5-qt fcitx5-gtk fcitx5-rime fcitx5-configtool fcitx5-input-support r
 pipewire pipewire-audio pipewire-pulse pavucontrol
 
 ## Hyprland
-xdg-desktop-portal-hyprland polkit-kde-agent qt5-wayland
+xdg-desktop-portal-hyprland hyprpolkitagent qt5-wayland
 
 ## Status Bar
 waybar
