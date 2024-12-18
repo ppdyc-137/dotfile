@@ -101,7 +101,7 @@ Plug('neoclide/coc.nvim', { ['branch'] = 'release' })
 
 Plug 'github/copilot.vim'
 Plug 'nvim-lua/plenary.nvim'
-Plug('CopilotC-Nvim/CopilotChat.nvim', { ['branch'] = 'canary' })
+Plug 'CopilotC-Nvim/CopilotChat.nvim'
 
 Plug 'junegunn/vim-easy-align'
 
@@ -267,6 +267,7 @@ vim.g.startify_bookmarks = {
     { v= "~/.config/nvim/init.lua"},
     { f= "~/.config/fish/config.fish"},
     { h= "~/.config/hypr/hyprland.conf"},
+    { k= "~/.config/kitty/kitty.conf"},
 }
 vim.g.startify_lists = {
        { type= 'files',     header= {'   MRU'}            },

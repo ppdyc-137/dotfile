@@ -25,7 +25,7 @@ install_config() {
 sudo pacman -S --needed base-devel fish python tmux neovim htop nodejs npm bat fd ripgrep zoxide yazi tree-sitter
 
 # install config
-CONFIGS=("fish" "nvim" "tmux" "yazi")
+CONFIGS=("fish" "nvim" "yazi")
 for config in "${CONFIGS[@]}"; do
     install_config $config
 done
@@ -43,6 +43,6 @@ info "Install fisher"
 fish fish/fisher.fish
 
 # tmux
-info "Install tpm"
-git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-info "Press prefix + I to install plugins"
+# info "Install tpm"
+# git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+# info "Press prefix + I to install plugins"

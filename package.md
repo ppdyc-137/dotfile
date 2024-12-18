@@ -20,7 +20,7 @@ waybar
 hyprpaper
 
 ## App Launchers
-rofi-lbonn-wayland-git tela-circle-icon-theme-dracula
+rofi-wayland tela-circle-icon-theme-dracula
 
 ## Clipboard Managers
 clipman
@@ -33,3 +33,6 @@ grim swappy slurp
 
 ## misc
 nwg-look grub-customizer
+
+## Terminal Emulator
+kitty
