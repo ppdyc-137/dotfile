@@ -50,3 +50,13 @@ rules = [
 
 	{ mime = "*", use = [ "open", "reveal" ] },
 ]
+
+[[plugin.prepend_fetchers]]
+id   = "git"
+name = "*"
+run  = "git"
+
+[[plugin.prepend_fetchers]]
+id   = "git"
+name = "*/"
+run  = "git"
