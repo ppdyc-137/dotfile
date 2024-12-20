@@ -31,6 +31,10 @@ set.inccommand = 'split'
 set.completeopt = 'longest,noinsert,menuone,noselect,preview'
 -- set.lazyredraw = true
 -- set.visualbell = true
+set.modeline = false
+set.updatetime = 100
+set.virtualedit = 'block'
+
 backupdir = os.getenv("HOME") ..'/.tmp/nvim/backup'
 undodir = os.getenv("HOME") ..'/.tmp/nvim/undo'
 if vim.fn.isdirectory(backupdir) == 0 then
@@ -45,8 +49,6 @@ if vim.fn.has('persistent_undo') then
     vim.opt.undofile = true
     vim.opt.undodir = undodir..',.'
 end
-vim.opt.updatetime = 100
-vim.opt.virtualedit = 'block'
 
 -- ==================== Basic Mappings ====================
 vim.g.mapleader = ' '
@@ -93,17 +95,14 @@ vim.call('plug#begin')
 Plug 'ellisonleao/gruvbox.nvim'
 Plug 'sainnhe/edge'
 
-Plug 'vim-airline/vim-airline'
-
-Plug 'ryanoasis/vim-devicons'
+Plug 'nvim-lualine/lualine.nvim'
+Plug 'nvim-tree/nvim-web-devicons'
 
 Plug('neoclide/coc.nvim', { ['branch'] = 'release' })
 
 Plug 'github/copilot.vim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'CopilotC-Nvim/CopilotChat.nvim'
-
-Plug 'junegunn/vim-easy-align'
 
 Plug 'gcmt/wildfire.vim'
 
@@ -119,11 +118,9 @@ Plug 'nvim-lua/plenary.nvim'
 Plug('nvim-telescope/telescope.nvim', { ['tag'] = '0.1.6' })
 Plug('nvim-telescope/telescope-fzf-native.nvim', { ['do'] = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' })
 
-Plug 'natecraddock/workspaces.nvim'
-
-Plug 'folke/zen-mode.nvim'
-
 Plug('akinsho/toggleterm.nvim', { ['tag'] = '*'})
+
+Plug 'mikavilpas/yazi.nvim'
 
 vim.call('plug#end')
 
@@ -141,6 +138,24 @@ local function set_backgroud(bg)
 end
 
 set_backgroud(os.getenv("THEME"))
+
+
+-- ======================= airline ============================
+require('lualine').setup {
+  options = {
+    theme = 'auto',
+    component_separators = '',
+    section_separators = '',
+  },
+  sections = {
+    lualine_a = {'mode'},
+    lualine_b = {'diff', 'diagnostics'},
+    lualine_c = {'filename'},
+    lualine_x = {'encoding', 'filetype'},
+    lualine_y = {'progress'},
+    lualine_z = {'location'}
+  },
+}
 
 -- ======================= coc ============================
 -- Autocomplete
@@ -246,16 +261,6 @@ keyset("n", "<space>o", ":<C-u>CocList outline<cr>", opts)
 keyset("n", "<space>s", ":<C-u>CocList -I symbols<cr>", opts)
 
 keyset("n", "<A-o>", "<Cmd>CocCommand clangd.switchSourceHeader<CR>", opts)
--- coc-explorer
-keyset("n", "tt", "<Cmd>CocCommand explorer --toggle<CR>")
-
-
--- ==================== EasyAlign ====================
--- Start interactive EasyAlign in visual mode (e.g. vipga)
-keyset("x", "ga", "<Plug>(EasyAlign)")
-
--- Start interactive EasyAlign for a motion/text object (e.g. gaip)
-keyset("n", "ga", "<Plug>(EasyAlign)")
 
 
 -- ==================== wildfire.vim ====================
@@ -267,7 +272,7 @@ vim.g.startify_bookmarks = {
     { v= "~/.config/nvim/init.lua"},
     { f= "~/.config/fish/config.fish"},
     { h= "~/.config/hypr/hyprland.conf"},
-    { k= "~/.config/kitty/kitty.conf"},
+    { t= "~/.config/kitty/kitty.conf"},
 }
 vim.g.startify_lists = {
        { type= 'files',     header= {'   MRU'}            },
@@ -295,15 +300,6 @@ keyset('n', 'fb', builtin.buffers, {})
 -- ==================== treesitter ====================
 require'nvim-treesitter.configs'.setup{highlight={enable=true}}
 
--- ==================== project ====================
-require("workspaces").setup({
-    hooks = {
-        open = { "Telescope find_files" },
-    }
-})
-require'telescope'.load_extension("workspaces")
-keyset('n', '<C-p>', "<CMD>Telescope workspaces<CR>", { noremap = true, silent = true })
-
 -- ==================== comment ====================
 require('Comment').setup()
 
@@ -320,7 +316,7 @@ keyset({ 'n', 'x' }, "<LEADER>a", "<CMD>CopilotChat<CR>", { silent = true })
 
 -- ==================== term ====================
 require("toggleterm").setup{
-    open_mapping = [[<c-`>]]
+    open_mapping = [[<C-`>]]
 }
 function _G.set_terminal_keymaps()
   local opts = {buffer = 0}
@@ -329,3 +325,20 @@ end
 
 -- if you only want these mappings for toggle term use term://*toggleterm#* instead
 vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
+
+local Terminal  = require('toggleterm.terminal').Terminal
+local floating_terminal = Terminal:new({
+    direction = 'float',
+    float_opts = {
+        border = 'curved',
+    },
+    hidden = true
+})
+keyset("n", "<C-\\>", function()
+  floating_terminal:toggle()
+end, {noremap = true, silent = true})
+
+-- ==================== yazi ====================
+keyset("n", "ra", function()
+  require("yazi").yazi()
+end)
