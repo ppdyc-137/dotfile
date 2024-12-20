@@ -1,7 +1,7 @@
 [manager]
 prepend_keymap = [
     { on = [ "<Esc>" ], run = "escape --all",              desc = "Exit visual mode, clear selected, or cancel search" },
-    { on = [ "l" ],     run = "plugin --sync smart-enter", desc = "Enter the child directory, or open the file" },
+    { on = [ "l" ],     run = "plugin smart-enter",        desc = "Enter the child directory, or open the file" },
     { on = [ "J" ],     run = "arrow 5",                   desc = "" },
     { on = [ "K" ],     run = "arrow -5",                  desc = "" },
     { on = [ "<C-j>"],  run = "seek 5",                    desc = "" },
