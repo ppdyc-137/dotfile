@@ -310,7 +310,8 @@ require("CopilotChat").setup{
     window = {
         layout = 'vertical',
         width = 0.4,
-  },
+    },
+    model = 'claude-3.5-sonnet',
 }
 keyset({ 'n', 'x' }, "<LEADER>a", "<CMD>CopilotChat<CR>", { silent = true })
 
