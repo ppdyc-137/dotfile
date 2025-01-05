@@ -224,7 +224,7 @@ keyset("x", "<leader>f", "<Plug>(coc-format-selected)", {silent = true})
 keyset("n", "<leader>f", "<Plug>(coc-format-selected)", {silent = true})
 
 -- Apply the most preferred quickfix action on the current line.
-keyset("n", "<leader>qf", "<Plug>(coc-fix-current)", opts)
+keyset("n", "<leader>F", "<Plug>(coc-fix-current)", {silent = true, nowait = true})
 
 -- Add `:Format` command to format current buffer
 vim.api.nvim_create_user_command("Format", "call CocAction('format')", {})
