@@ -122,6 +122,8 @@ Plug('akinsho/toggleterm.nvim', { ['tag'] = '*'})
 
 Plug 'mikavilpas/yazi.nvim'
 
+Plug 'MeanderingProgrammer/render-markdown.nvim'
+
 vim.call('plug#end')
 
 -- ======================= Colorscheme ============================
@@ -235,14 +237,12 @@ vim.api.nvim_create_user_command("OR", "call CocActionAsync('runCommand', 'edito
 -- Remap <C-j> and <C-k> to scroll float windows/popups
 ---@diagnostic disable-next-line: redefined-local
 local opts = {silent = true, nowait = true, expr = true}
-keyset("n", "<C-j>", 'coc#float#has_scroll() ? coc#float#scroll(1) : "<C-j>"', opts)
-keyset("n", "<C-k>", 'coc#float#has_scroll() ? coc#float#scroll(0) : "<C-k>"', opts)
-keyset("i", "<C-j>",
-       'coc#float#has_scroll() ? "<c-r>=coc#float#scroll(1)<cr>" : "<Right>"', opts)
-keyset("i", "<C-k>",
-       'coc#float#has_scroll() ? "<c-r>=coc#float#scroll(0)<cr>" : "<Left>"', opts)
-keyset("v", "<C-j>", 'coc#float#has_scroll() ? coc#float#scroll(1) : "<C-j>"', opts)
-keyset("v", "<C-k>", 'coc#float#has_scroll() ? coc#float#scroll(0) : "<C-k>"', opts)
+keyset("n", "<C-j>", 'coc#float#has_scroll() ? coc#float#scroll(1) : ""', opts)
+keyset("n", "<C-k>", 'coc#float#has_scroll() ? coc#float#scroll(0) : ""', opts)
+keyset("i", "<C-j>", 'coc#float#has_scroll() ? "<c-r>=coc#float#scroll(1)<cr>" : ""', opts)
+keyset("i", "<C-k>", 'coc#float#has_scroll() ? "<c-r>=coc#float#scroll(0)<cr>" : ""', opts)
+keyset("v", "<C-j>", 'coc#float#has_scroll() ? coc#float#scroll(1) : ""', opts)
+keyset("v", "<C-k>", 'coc#float#has_scroll() ? coc#float#scroll(0) : ""', opts)
 
 -- Add (Neo)Vim's native statusline support
 -- NOTE: Please see `:h coc-status` for integrations with external plugins that
@@ -307,6 +307,9 @@ require('Comment').setup()
 -- vim.g.copilot_filetypes = { ['*'] = false, }
 keyset('i', "<M-i>", "<Plug>(copilot-suggest)", { silent = true })
 require("CopilotChat").setup{
+    highlight_headers = false,
+    separator = '---',
+    error_header = '> [!ERROR] Error',
     window = {
         layout = 'vertical',
         width = 0.4,
@@ -343,3 +346,8 @@ end, {noremap = true, silent = true})
 keyset("n", "ra", function()
   require("yazi").yazi()
 end)
+
+-- ==================== render-markdown ====================
+require('render-markdown').setup({
+  file_types = { 'markdown', 'copilot-chat' },
+})
