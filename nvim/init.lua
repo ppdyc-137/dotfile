@@ -35,8 +35,8 @@ set.modeline = false
 set.updatetime = 100
 set.virtualedit = 'block'
 
-backupdir = os.getenv("HOME") ..'/.tmp/nvim/backup'
-undodir = os.getenv("HOME") ..'/.tmp/nvim/undo'
+backupdir = os.getenv("HOME") ..'/.cache/nvim/backup'
+undodir = os.getenv("HOME") ..'/.cache/nvim/undo'
 if vim.fn.isdirectory(backupdir) == 0 then
 	vim.fn.mkdir(backupdir, "p", "0o700")
 end
@@ -53,13 +53,19 @@ end
 -- ==================== Basic Mappings ====================
 vim.g.mapleader = ' '
 
-keyset('', '<LEADER><CR>', '<Cmd>noh<CR>', {noremap = true})
+-- Escape and Clear hlsearch"
+keyset({ "i", "n", "s" }, "<esc>", function()
+  vim.cmd("noh")
+  return "<esc>"
+end, { expr = true })
 
 keyset('', 's', '<Nop>')
 keyset('', 'q', '<Nop>')
 keyset('', 'S', '<Cmd>w<CR>')
 keyset('', 'Q', '<Cmd>q<CR>')
 keyset('', 'W', '<Cmd>bdelete<CR>')
+
+keyset("n", "<leader>K", "<cmd>norm! K<cr>")
 
 keyset('', 'J', '5j')
 keyset('', 'K', '5k')
@@ -70,6 +76,9 @@ keyset('', '<LEADER>l', '<C-w>l')
 keyset('', '<LEADER>h', '<C-w>h')
 keyset('', '<LEADER>j', '<C-w>j')
 keyset('', '<LEADER>k', '<C-w>k')
+
+keyset('', '<C-h>', '<CMD>bprevious<CR>', {noremap = true})
+keyset('', '<C-l>', '<CMD>bnext<CR>', {noremap = true})
 
 keyset('n', 'sl', function()
     vim.opt.splitright = true
@@ -98,6 +107,10 @@ Plug 'sainnhe/edge'
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'nvim-tree/nvim-web-devicons'
 
+Plug('akinsho/bufferline.nvim', { ['tag'] = '*' })
+
+Plug 'folke/snacks.nvim'
+
 Plug('neoclide/coc.nvim', { ['branch'] = 'release' })
 
 Plug 'github/copilot.vim'
@@ -117,8 +130,6 @@ Plug('nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate'})
 Plug 'nvim-lua/plenary.nvim'
 Plug('nvim-telescope/telescope.nvim', { ['tag'] = '0.1.6' })
 Plug('nvim-telescope/telescope-fzf-native.nvim', { ['do'] = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' })
-
-Plug('akinsho/toggleterm.nvim', { ['tag'] = '*'})
 
 Plug 'mikavilpas/yazi.nvim'
 
@@ -157,6 +168,13 @@ require('lualine').setup {
     lualine_y = {'progress'},
     lualine_z = {'location'}
   },
+}
+
+-- ======================= bufferline ============================
+require("bufferline").setup {
+    options = {
+        always_show_bufferline = false,
+    }
 }
 
 -- ======================= coc ============================
@@ -223,14 +241,14 @@ keyset("n", "<leader>rn", "<Plug>(coc-rename)", {silent = true})
 
 -- Formatting selected code
 keyset("x", "<leader>f", "<Plug>(coc-format-selected)", {silent = true})
-keyset("n", "<leader>f", "<Plug>(coc-format-selected)", {silent = true})
+-- Format all
+keyset("n", "<leader>F", "<CMD>call CocAction('format')<CR>", {silent = true})
 
 -- Apply the most preferred quickfix action on the current line.
-keyset("n", "<leader>F", "<Plug>(coc-fix-current)", {silent = true, nowait = true})
+keyset("n", "<leader>qf", "<Plug>(coc-fix-current)", {silent = true, nowait = true})
 
--- Add `:Format` command to format current buffer
-vim.api.nvim_create_user_command("Format", "call CocAction('format')", {})
-
+-- " Add `:Fold` command to fold current buffer
+vim.api.nvim_create_user_command("Fold", "call CocAction('fold', <f-args>)", {nargs = '?'})
 -- Add `:OR` command for organize imports of the current buffer
 vim.api.nvim_create_user_command("OR", "call CocActionAsync('runCommand', 'editor.action.organizeImport')", {})
 
@@ -292,7 +310,18 @@ require('telescope').setup{
         }
     },
 }
+
+function get_root()
+    local folders = vim.g.WorkspaceFolders
+    if folders and #folders > 0 then
+        return folders[1]
+    end
+end
+
 local builtin = require('telescope.builtin')
+keyset('n', '<leader><space>', function()
+    builtin.find_files( { cwd = get_root() } )
+end)
 keyset('n', 'ff', builtin.find_files, {})
 keyset('n', 'fg', builtin.live_grep, {})
 keyset('n', 'fb', builtin.buffers, {})
@@ -318,29 +347,33 @@ require("CopilotChat").setup{
 }
 keyset({ 'n', 'x' }, "<LEADER>a", "<CMD>CopilotChat<CR>", { silent = true })
 
--- ==================== term ====================
-require("toggleterm").setup{
-    open_mapping = [[<C-`>]]
-}
-function _G.set_terminal_keymaps()
-  local opts = {buffer = 0}
-  vim.keymap.set('t', '<C-w>', [[<C-\><C-n><C-w>]], opts)
-end
-
--- if you only want these mappings for toggle term use term://*toggleterm#* instead
-vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
-
-local Terminal  = require('toggleterm.terminal').Terminal
-local floating_terminal = Terminal:new({
-    direction = 'float',
-    float_opts = {
-        border = 'curved',
+-- ======================= snacks.nvim ============================
+require("snacks").setup {
+    indent = { enabled = true },
+    terminal = {
+        enabled = true,
+        win = {
+            style = 'minimal'
+        }
     },
-    hidden = true
-})
-keyset("n", "<C-\\>", function()
-  floating_terminal:toggle()
-end, {noremap = true, silent = true})
+    lazygit = { enabled = true },
+    zen = { enabled = true },
+    toggle = {
+        map = vim.keymap.set,
+        which_key = false,
+        notify = false,
+    },
+}
+
+keyset('n', "<C-`>", function() 
+    local root = get_root()
+    print(root)
+    Snacks.terminal(nil, { cwd = get_root() })
+end)
+keyset("t", "<C-`>", "<cmd>close<cr>")
+
+keyset("n", "<leader>gg", function() Snacks.lazygit() end)
+Snacks.toggle.zen():map("<leader>z")
 
 -- ==================== yazi ====================
 keyset("n", "ra", function()
