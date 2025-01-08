@@ -333,7 +333,7 @@ require'nvim-treesitter.configs'.setup{highlight={enable=true}}
 require('Comment').setup()
 
 -- ==================== copilot ====================
--- vim.g.copilot_filetypes = { ['*'] = false, }
+vim.g.copilot_filetypes = { ['*'] = false, }
 keyset('i', "<M-i>", "<Plug>(copilot-suggest)", { silent = true })
 require("CopilotChat").setup{
     highlight_headers = false,
