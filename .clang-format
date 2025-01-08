@@ -6,10 +6,12 @@ BraceWrapping:
   AfterCaseLabel: false
   AfterClass: false
   AfterControlStatement: Never
-  AfterFunction: true
+  AfterFunction: false
   AfterNamespace: false
 AllowShortIfStatementsOnASingleLine: false
 IndentCaseLabels: false
 PointerAlignment: Left
-ColumnLimit: 200
-IndentAccessModifiers: false
+ColumnLimit: 120
+AccessModifierOffset: -4
+AlwaysBreakTemplateDeclarations: true
+NamespaceIndentation: All
