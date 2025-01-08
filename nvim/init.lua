@@ -50,6 +50,21 @@ if vim.fn.has('persistent_undo') then
     vim.opt.undodir = undodir..',.'
 end
 
+-- ==================== Auto Commands ====================
+local function augroup(name)
+  return vim.api.nvim_create_augroup(name, { clear = true })
+end
+
+-- resize splits if window got resized
+vim.api.nvim_create_autocmd({ "VimResized" }, {
+  group = augroup("resize_splits"),
+  callback = function()
+    local current_tab = vim.fn.tabpagenr()
+    vim.cmd("tabdo wincmd =")
+    vim.cmd("tabnext " .. current_tab)
+  end,
+})
+
 -- ==================== Basic Mappings ====================
 vim.g.mapleader = ' '
 
@@ -120,8 +135,6 @@ Plug 'CopilotC-Nvim/CopilotChat.nvim'
 Plug 'gcmt/wildfire.vim'
 
 Plug 'numToStr/Comment.nvim'
-
-Plug 'mhinz/vim-startify'
 
 Plug 'farmergreg/vim-lastplace'
 
@@ -284,19 +297,6 @@ keyset("n", "<A-o>", "<Cmd>CocCommand clangd.switchSourceHeader<CR>", opts)
 -- ==================== wildfire.vim ====================
 vim.g.wildfire_objects = {"i'", 'i"', "i)", "i]", "i}", "ip", "it", "iw", "i>"}
 
-
--- ==================== startify ====================
-vim.g.startify_bookmarks = {
-    { v= "~/.config/nvim/init.lua"},
-    { f= "~/.config/fish/config.fish"},
-    { h= "~/.config/hypr/hyprland.conf"},
-    { t= "~/.config/kitty/kitty.conf"},
-}
-vim.g.startify_lists = {
-       { type= 'files',     header= {'   MRU'}            },
-       { type= 'bookmarks', header= {'   Bookmarks'}      },
-}
-
 -- ==================== telescope ====================
 require('telescope').setup{
     defaults = {
@@ -363,6 +363,64 @@ require("snacks").setup {
         which_key = false,
         notify = false,
     },
+    dashboard = {
+        preset = {
+           keys = {
+             { icon = " ", key = "f", desc = "Find File", action = ":lua Snacks.dashboard.pick('files')" },
+             { icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
+             { icon = " ", key = "g", desc = "Find Text", action = ":lua Snacks.dashboard.pick('live_grep')" },
+             { icon = " ", key = "r", desc = "Recent Files", action = ":lua Snacks.dashboard.pick('oldfiles')" },
+             { icon = " ", key = "q", desc = "Quit", action = ":qa" },
+           },
+         },
+        sections = {
+            { section = "header", },
+            { title = "Keymaps", icon = " ", padding = 1 },
+            { section = "keys", gap = 1, padding = 1, indent = 2 },
+            { title = "Configs", icon = " ", padding = 1 },
+            {
+                gap = 1, padding = 1, indent = 2,
+                {
+                    key = 'V',
+                    desc = 'Neovim',
+                    icon = " ",
+                    action = function()
+                        Snacks.dashboard.pick('files', {cwd = "~/.config/nvim/"})
+                    end,
+                },
+                {
+                    key = 'F',
+                    desc = 'Fish',
+                    icon = "󰈺 ",
+                    action = function()
+                        Snacks.dashboard.pick('files', {cwd = "~/.config/fish/"})
+                    end,
+                },
+                {
+                    key = 'H',
+                    desc = 'Hyprland',
+                    icon = " ",
+                    action = function()
+                        Snacks.dashboard.pick('files', {cwd = "~/.config/hypr/"})
+                    end,
+                },
+                {
+                    key = 'K',
+                    desc = 'Kitty',
+                    icon = " ",
+                    action = function()
+                        Snacks.dashboard.pick('files', {cwd = "~/.config/kitty/"})
+                    end,
+                },
+            },
+            -- {
+            --   pane = 2,
+            --   padding = 7,
+            -- },
+            -- { pane = 2, icon = " ", title = "Recent Files", section = "recent_files", indent = 2, padding = 1, limit = 8 },
+            -- { pane = 2, icon = " ", title = "Projects", section = "projects", indent = 2, padding = 1, limit = 8 },
+        },
+    }
 }
 
 keyset('n', "<C-`>", function() 
