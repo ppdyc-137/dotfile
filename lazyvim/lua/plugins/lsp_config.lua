@@ -1,4 +1,3 @@
--- LSP keymaps
 return {
   {
     "neovim/nvim-lspconfig",
@@ -14,5 +13,14 @@ return {
         desc = "Hover",
       }
     end,
+  },
+  {
+    "neovim/nvim-lspconfig",
+    opts = {
+      inlay_hints = { enabled = false },
+      diagnostics = {
+        -- virtual_text = false,
+      },
+    },
   },
 }

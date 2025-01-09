@@ -56,3 +56,10 @@ keyset("n", "sk", function()
   vim.opt.splitbelow = false
   vim.cmd("split")
 end)
+
+
+keyset("n", "<c-`>", function() Snacks.terminal(nil, { cwd = LazyVim.root() }) end, { desc = "Terminal (Root Dir)" })
+keyset("t", "<C-`>", "<cmd>close<cr>", { desc = "Hide Terminal" })
+
+keydel("v", ">")
+keydel("v", "<")
