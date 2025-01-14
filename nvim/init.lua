@@ -366,7 +366,7 @@ require("snacks").setup {
     dashboard = {
         preset = {
            keys = {
-             { icon = " ", key = "f", desc = "Find File", action = ":lua Snacks.dashboard.pick('files')" },
+             { icon = " ", key = "<space>", desc = "Find File", action = ":lua Snacks.dashboard.pick('files')" },
              { icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
              { icon = " ", key = "g", desc = "Find Text", action = ":lua Snacks.dashboard.pick('live_grep')" },
              { icon = " ", key = "r", desc = "Recent Files", action = ":lua Snacks.dashboard.pick('oldfiles')" },
@@ -381,36 +381,28 @@ require("snacks").setup {
             {
                 gap = 1, padding = 1, indent = 2,
                 {
-                    key = 'V',
+                    key = 'v',
                     desc = 'Neovim',
                     icon = " ",
-                    action = function()
-                        Snacks.dashboard.pick('files', {cwd = "~/.config/nvim/"})
-                    end,
+                    action = ":e ~/.config/nvim/init.lua",
                 },
                 {
-                    key = 'F',
+                    key = 'f',
                     desc = 'Fish',
                     icon = "󰈺 ",
-                    action = function()
-                        Snacks.dashboard.pick('files', {cwd = "~/.config/fish/"})
-                    end,
+                    action = ":e ~/.config/fish/config.fish",
                 },
                 {
-                    key = 'H',
+                    key = 'h',
                     desc = 'Hyprland',
                     icon = " ",
-                    action = function()
-                        Snacks.dashboard.pick('files', {cwd = "~/.config/hypr/"})
-                    end,
+                    action = ":e ~/.config/hypr/hyprland.conf",
                 },
                 {
-                    key = 'K',
+                    key = 't',
                     desc = 'Kitty',
                     icon = " ",
-                    action = function()
-                        Snacks.dashboard.pick('files', {cwd = "~/.config/kitty/"})
-                    end,
+                    action = ":e ~/.config/kitty/kitty.conf",
                 },
             },
             -- {
