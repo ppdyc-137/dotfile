@@ -16,8 +16,6 @@ if status is-interactive
     alias la="lazygit"
     alias q="exit"
     alias v="nvim"
-    alias vi="nvim"
-    alias vim="nvim"
     alias top="htop"
     alias cat="bat -p"
     alias n="fastfetch"
@@ -28,9 +26,4 @@ if status is-interactive
     if test -e ~/.config/fish/platform-specific.fish
         source ~/.config/fish/platform-specific.fish
     end
-
-    if test -z $TMUX && ! fish_is_root_user && test -z $NVIM && test -z $VIM && test "$TERM_PROGRAM" != "vscode" && ! test -z $ENABLE_TMUX
-        tmux new-session
-    end
-
 end
