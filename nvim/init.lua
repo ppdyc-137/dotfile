@@ -306,6 +306,8 @@ require('telescope').setup{
             n = {
                 ["l"] = "select_default",
                 ["q"] = "close",
+                ["K"] = "preview_scrolling_up",
+                ["J"] = "preview_scrolling_down",
             }
         }
     },
@@ -412,12 +414,12 @@ require("snacks").setup {
             -- { pane = 2, icon = " ", title = "Recent Files", section = "recent_files", indent = 2, padding = 1, limit = 8 },
             -- { pane = 2, icon = " ", title = "Projects", section = "projects", indent = 2, padding = 1, limit = 8 },
         },
-    }
+    },
+    image = {},
 }
 
 keyset('n', "<C-`>", function() 
     local root = get_root()
-    print(root)
     Snacks.terminal(nil, { cwd = get_root() })
 end)
 keyset("t", "<C-`>", "<cmd>close<cr>")
