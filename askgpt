@@ -1,0 +1,118 @@
+#!/usr/bin/python3
+import os
+from rich.console import Console
+from rich.markdown import Markdown
+from rich.live import Live
+from openai import OpenAI
+import argparse
+
+console = Console()
+
+
+def parse_arguments():
+    parser = argparse.ArgumentParser(description='Ask GPT')
+    parser.add_argument('-m', '--model', type=str, default='deepseek-v3',
+                        help='AI model(default: deepseek-v3)')
+    parser.add_argument('message', nargs='?', type=str,
+                        help='Initial message')
+    return parser.parse_args()
+
+
+def streaming_response(stream):
+    thinking = False
+    reasoning_content = ""
+    answering_content = ""
+
+    for chunk in stream:
+        if not chunk.choices:
+            continue
+        delta = chunk.choices[0].delta
+
+        if hasattr(delta, "reasoning_content") and delta.reasoning_content:
+            thinking = True
+            reasoning_content += delta.reasoning_content
+            break
+        if hasattr(delta, "content") and delta.content:
+            answering_content += delta.content
+            break
+
+    if thinking:
+        console.print("[bold green]Thinking:[/bold green]")
+        with Live(auto_refresh=False, vertical_overflow="visible", console=console) as live:
+            for chunk in stream:
+                if not chunk.choices:
+                    continue
+                delta = chunk.choices[0].delta
+
+                if hasattr(delta, "reasoning_content") and delta.reasoning_content:
+                    reasoning_content += delta.reasoning_content
+                    live.update(
+                        Markdown(reasoning_content),
+                        refresh=True
+                    )
+                if hasattr(delta, "content") and delta.content:
+                    answering_content += delta.content
+                    break
+        console.print("")
+
+    console.print("[bold green]Assistant:[/bold green]")
+    with Live(auto_refresh=False, vertical_overflow="visible") as live:
+        for chunk in stream:
+            if not chunk.choices:
+                continue
+            delta = chunk.choices[0].delta
+
+            if hasattr(delta, "content") and delta.content:
+                answering_content += delta.content
+                live.update(
+                    Markdown(answering_content),
+                    refresh=True
+                )
+
+    return answering_content
+
+
+if __name__ == "__main__":
+    with open(os.path.expanduser("~/.askgpt"), "r") as f:
+        api_key = f.read().strip()
+        if not api_key:
+            raise ValueError("API key not found in ~/.askgpt")
+
+    client = OpenAI(
+        api_key=api_key,
+        base_url="https://dashscope.aliyuncs.com/compatible-mode/v1",
+    )
+
+    args = parse_arguments()
+    messages = []
+
+    while True:
+        try:
+            if args.message:
+                user_input = args.message
+                args.message = None
+            else:
+                user_input = console.input("[bold yellow]You ➜ [/bold yellow]")
+
+            messages.append({'role': 'user', 'content': user_input})
+
+            with console.status("[bold green]Thinking...[/bold green]", spinner="dots"):
+                stream = client.chat.completions.create(
+                    model=args.model,
+                    messages=messages,
+                    stream=True,
+                    temperature=0.7,
+                )
+
+            console.rule(f"{args.model}", style="bold blue")
+            response = streaming_response(stream)
+            console.rule(style="dim blue")
+            messages.append({'role': 'assistant', 'content': response})
+
+        except KeyboardInterrupt:
+            break
+        except EOFError:
+            break
+        except Exception as e:
+            console.print(f"[bold red]Error：[/bold red]{str(e)}")
+            messages.pop()

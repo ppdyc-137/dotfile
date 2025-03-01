@@ -16,10 +16,11 @@ if status is-interactive
     alias la="lazygit"
     alias q="exit"
     alias v="nvim"
-    alias top="htop"
+    alias top="btm"
     alias cat="bat -p"
     alias n="fastfetch"
     alias ra="yazi"
+    alias ask="askgpt"
 
     zoxide init --cmd cd fish | source
 
