@@ -1,5 +1,5 @@
 local vim = vim
-local set = vim.opt
+local set = vim.o
 local Plug = vim.fn['plug#']
 local keyset = vim.keymap.set
 
@@ -12,7 +12,7 @@ set.autochdir = false
 set.number = true
 set.cursorline = true
 set.list = true
-set.listchars = {tab = '| ', trail = '▫'}
+set.listchars = "trail:▫"
 set.scrolloff = 4
 set.ttimeoutlen = 0
 set.timeout = false
@@ -134,8 +134,6 @@ Plug 'CopilotC-Nvim/CopilotChat.nvim'
 
 Plug 'gcmt/wildfire.vim'
 
-Plug 'numToStr/Comment.nvim'
-
 Plug 'farmergreg/vim-lastplace'
 
 Plug('nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate'})
@@ -143,8 +141,6 @@ Plug('nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate'})
 Plug 'nvim-lua/plenary.nvim'
 Plug('nvim-telescope/telescope.nvim', { ['tag'] = '0.1.6' })
 Plug('nvim-telescope/telescope-fzf-native.nvim', { ['do'] = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' })
-
-Plug 'mikavilpas/yazi.nvim'
 
 Plug 'MeanderingProgrammer/render-markdown.nvim'
 
@@ -331,9 +327,6 @@ keyset('n', 'fb', builtin.buffers, {})
 -- ==================== treesitter ====================
 require'nvim-treesitter.configs'.setup{highlight={enable=true}}
 
--- ==================== comment ====================
-require('Comment').setup()
-
 -- ==================== copilot ====================
 vim.g.copilot_filetypes = { ['*'] = false, }
 keyset('i', "<M-i>", "<Plug>(copilot-suggest)", { silent = true })
@@ -426,11 +419,6 @@ keyset("t", "<C-`>", "<cmd>close<cr>")
 
 keyset("n", "<leader>gg", function() Snacks.lazygit() end)
 Snacks.toggle.zen():map("<leader>z")
-
--- ==================== yazi ====================
-keyset("n", "ra", function()
-  require("yazi").yazi()
-end)
 
 -- ==================== render-markdown ====================
 require('render-markdown').setup({
