@@ -138,10 +138,6 @@ Plug 'farmergreg/vim-lastplace'
 
 Plug('nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate'})
 
-Plug 'nvim-lua/plenary.nvim'
-Plug('nvim-telescope/telescope.nvim', { ['tag'] = '0.1.6' })
-Plug('nvim-telescope/telescope-fzf-native.nvim', { ['do'] = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' })
-
 Plug 'MeanderingProgrammer/render-markdown.nvim'
 
 vim.call('plug#end')
@@ -293,37 +289,6 @@ keyset("n", "<A-o>", "<Cmd>CocCommand clangd.switchSourceHeader<CR>", opts)
 -- ==================== wildfire.vim ====================
 vim.g.wildfire_objects = {"i'", 'i"', "i)", "i]", "i}", "ip", "it", "iw", "i>"}
 
--- ==================== telescope ====================
-require('telescope').setup{
-    defaults = {
-        prompt_prefix = ' ',
-        initial_mode = "normal",
-        mappings = {
-            n = {
-                ["l"] = "select_default",
-                ["q"] = "close",
-                ["K"] = "preview_scrolling_up",
-                ["J"] = "preview_scrolling_down",
-            }
-        }
-    },
-}
-
-function get_root()
-    local folders = vim.g.WorkspaceFolders
-    if folders and #folders > 0 then
-        return folders[1]
-    end
-end
-
-local builtin = require('telescope.builtin')
-keyset('n', '<leader><space>', function()
-    builtin.find_files( { cwd = get_root() } )
-end)
-keyset('n', 'ff', builtin.find_files, {})
-keyset('n', 'fg', builtin.live_grep, {})
-keyset('n', 'fb', builtin.buffers, {})
-
 -- ==================== treesitter ====================
 require'nvim-treesitter.configs'.setup{highlight={enable=true}}
 
@@ -409,7 +374,26 @@ require("snacks").setup {
         },
     },
     image = {},
+    picker = {
+        focus = 'list',
+        win = {
+            list = {
+                keys = {
+                    ["l"] = "confirm",
+                    ["K"] = "preview_scroll_up",
+                    ["J"] = "preview_scroll_down",
+                },
+            },
+        },
+    },
 }
+
+function get_root()
+    local folders = vim.g.WorkspaceFolders
+    if folders and #folders > 0 then
+        return folders[1]
+    end
+end
 
 keyset('n', "<C-`>", function() 
     local root = get_root()
@@ -420,6 +404,14 @@ keyset("t", "<C-`>", "<cmd>close<cr>")
 keyset("n", "<leader>gg", function() Snacks.lazygit() end)
 Snacks.toggle.zen():map("<leader>z")
 
+keyset('n', 'ff', Snacks.picker.files, {})
+keyset('n', 'fF', function()
+    Snacks.picker.files( { cwd = get_root() } )
+end)
+keyset('n', 'fg', Snacks.picker.grep, {})
+keyset('n', 'fG', function()
+    Snacks.picker.grep( { cwd = get_root() } )
+end)
 -- ==================== render-markdown ====================
 require('render-markdown').setup({
   file_types = { 'markdown', 'copilot-chat' },
