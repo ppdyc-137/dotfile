@@ -6,5 +6,8 @@
     "explorer.icon.source": "builtin",
     "inlayHint.enable": false,
     "clangd.path": "/usr/bin/clangd",
-    "semanticTokens.enable": true
+    "semanticTokens.enable": true,
+    "go.goplsOptions" : {
+        "semanticTokens": true
+    }
 }
