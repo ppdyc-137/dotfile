@@ -14,6 +14,8 @@ imv = [
 [open]
 prepend_rules = [
 	{ mime = "image/*", use = [ "imv", "reveal" ] },
+	{ mime = "application/pdf", use = [ "sioyek" ] },
+	{ mime = "application/octet-stream", use = [ "sioyek" ] },
 ]
 
 [[plugin.prepend_fetchers]]
