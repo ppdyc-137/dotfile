@@ -1,4 +1,4 @@
-if true then return {} end
+if vim.g.lsp_enable then return {} end
 
 local M = {
     "neoclide/coc.nvim",
@@ -71,7 +71,7 @@ keyset("n", "<leader>rn", "<Plug>(coc-rename)", { silent = true })
 -- Formatting selected code
 keyset("x", "<leader>f", "<Plug>(coc-format-selected)", { silent = true })
 -- Format all
-keyset("n", "<leader>F", "<CMD>call CocAction('format')<CR>", { silent = true })
+keyset("n", "<leader>f", "<CMD>call CocAction('format')<CR>", { silent = true })
 
 -- Apply the most preferred quickfix action on the current line.
 keyset("n", "<leader>qf", "<Plug>(coc-fix-current)", { silent = true, nowait = true })

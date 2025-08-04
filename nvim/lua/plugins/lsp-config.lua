@@ -1,3 +1,5 @@
+if not vim.g.lsp_enable then return {} end
+
 return {
     {
         "neovim/nvim-lspconfig",

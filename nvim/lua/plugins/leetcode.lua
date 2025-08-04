@@ -15,6 +15,13 @@ return {
             cn = {
                 enabled = true,
             },
+            injector = { ---@type table<lc.lang, lc.inject>
+                ["cpp"] = {
+                    imports = function()
+                        return { "#include <bits/stdc++.h>", "using namespace std;" }
+                    end,
+                },
+            },
         },
     }
 }

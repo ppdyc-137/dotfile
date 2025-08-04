@@ -50,15 +50,10 @@ return {
             },
             image = {},
             picker = { focus = "list" },
+            words = {},
         },
         keys = {
             { "W",         function() Snacks.bufdelete.delete() end },
-
-            { "gd",        function() Snacks.picker.lsp_definitions() end },
-            { "gD",        function() Snacks.picker.lsp_declarations() end },
-            { "gr",        function() Snacks.picker.lsp_references() end,                    nowait = true },
-            { "gI",        function() Snacks.picker.lsp_implementations() end },
-            { "gy",        function() Snacks.picker.lsp_type_definitions() end },
 
             { "<C-`>",     function() Snacks.terminal.toggle(nil, { cwd = get_root() }) end, mode = { "n", "t" } },
 
@@ -69,8 +64,6 @@ return {
             { "fF",        function() Snacks.picker.files({ cwd = get_root() }) end },
             { "fg",        function() Snacks.picker.grep() end },
             { "fG",        function() Snacks.picker.grep({ cwd = get_root() }) end },
-            { "fs",        function() Snacks.picker.lsp_symbols() end },
-            { "fd",        function() Snacks.picker.diagnostics() end },
         },
     },
 }

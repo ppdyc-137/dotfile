@@ -10,11 +10,13 @@ return {
         },
         keys = {
             {
-                "<C-i>",
+                "<C-k>",
                 function()
-                    local cmp = require("blink.cmp")
-                    if cmp.is_visible() then
-                        cmp.hide()
+                    if vim.g.lsp_enable then
+                        local cmp = require("blink.cmp")
+                        if cmp.is_visible() then
+                            cmp.hide()
+                        end
                     end
                     require("copilot.suggestion").next()
                 end,

@@ -43,3 +43,7 @@ if vim.fn.has('persistent_undo') then
     vim.opt.undofile = true
     vim.opt.undodir = undodir..',.'
 end
+
+vim.cmd("highlight link markdownError NONE")
+
+vim.g.lsp_enable = false

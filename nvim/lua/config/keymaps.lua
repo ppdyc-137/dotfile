@@ -44,18 +44,31 @@ end)
 keyset("n", "<leader>K", "<cmd>norm! K<cr>")
 keyset("n", "<leader>L", "<cmd>Lazy<cr>")
 
-keyset("n", "gh", function() vim.lsp.buf.hover() end)
+if vim.g.lsp_enable then
+    keyset("n", "gh", function() vim.lsp.buf.hover() end)
 
--- diagnostic
-local diagnostic_goto = function(next, severity)
-    local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
-    severity = severity and vim.diagnostic.severity[severity] or nil
-    return function()
-        go({ severity = severity })
+    -- diagnostic
+    local diagnostic_goto = function(next, severity)
+        local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
+        severity = severity and vim.diagnostic.severity[severity] or nil
+        return function()
+            go({ severity = severity })
+        end
     end
-end
-keyset("n", "<leader>cd", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
-keyset("n", "g]", diagnostic_goto(true), { desc = "Next Diagnostic" })
-keyset("n", "g[", diagnostic_goto(false), { desc = "Prev Diagnostic" })
+    keyset("n", "g]", diagnostic_goto(true), { desc = "Next Diagnostic" })
+    keyset("n", "g[", diagnostic_goto(false), { desc = "Prev Diagnostic" })
 
-keyset("n", "<A-o>", "<cmd>LspClangdSwitchSourceHeader<cr>")
+    keyset("n", "<leader>rn", vim.lsp.buf.rename)
+    keyset({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action)
+
+    keyset("n", "<A-o>", "<cmd>LspClangdSwitchSourceHeader<cr>")
+
+    keyset("n", "gd", function() Snacks.picker.lsp_definitions() end)
+    keyset("n", "gD", function() Snacks.picker.lsp_declarations() end)
+    keyset("n", "gr", function() Snacks.picker.lsp_references() end)
+    keyset("n", "gI", function() Snacks.picker.lsp_implementations() end)
+    keyset("n", "gy", function() Snacks.picker.lsp_type_definitions() end)
+
+    keyset("n", "fs", function() Snacks.picker.lsp_symbols() end)
+    keyset("n", "fd", function() Snacks.picker.diagnostics() end)
+end
