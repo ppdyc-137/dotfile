@@ -1,8 +1,5 @@
 {
-    "layer": "top", // Waybar at top layer
     "position": "top", // Waybar position (top|bottom|left|right)
-    // "width": 1280, // Waybar width
-    // "spacing": 4, // Gaps between modules (4px)
 
     "modules-left": ["hyprland/workspaces"],
     // "modules-center": ["hyprland/window"],
@@ -12,15 +9,7 @@
         "format": "{name}",
         "all-outputs": true,
     },
-    "idle_inhibitor": {
-        "format": "{icon}",
-        "format-icons": {
-            "activated": "",
-            "deactivated": ""
-        }
-    },
     "tray": {
-        // "icon-size": 21,
         "spacing": 10
     },
     "clock": {
