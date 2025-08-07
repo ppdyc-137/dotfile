@@ -46,4 +46,4 @@ end
 
 vim.cmd("highlight link markdownError NONE")
 
-vim.g.lsp_enable = false
+vim.g.lsp_enable = true

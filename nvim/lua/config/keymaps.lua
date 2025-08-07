@@ -58,8 +58,8 @@ if vim.g.lsp_enable then
     keyset("n", "g]", diagnostic_goto(true), { desc = "Next Diagnostic" })
     keyset("n", "g[", diagnostic_goto(false), { desc = "Prev Diagnostic" })
 
-    keyset("n", "<leader>rn", vim.lsp.buf.rename)
-    keyset({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action)
+    keyset("n", "grn", vim.lsp.buf.rename)
+    keyset({ "n", "v" }, "g.", vim.lsp.buf.code_action)
 
     keyset("n", "<A-o>", "<cmd>LspClangdSwitchSourceHeader<cr>")
 

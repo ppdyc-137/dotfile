@@ -5,24 +5,19 @@ return {
         event = "InsertEnter",
         opts = {
             suggestion = {
-                auto_trigger = false,
+                enabled = true,
+                auto_trigger = true,
+                hide_during_completion = false,
+                trigger_on_accept = true,
+                keymap = {
+                    accept = "<C-l>",
+                    accept_word = false,
+                    accept_line = false,
+                    next = "<M-]>",
+                    prev = "<M-[>",
+                    dismiss = "<C-]>",
+                },
             },
-        },
-        keys = {
-            {
-                "<C-k>",
-                function()
-                    if vim.g.lsp_enable then
-                        local cmp = require("blink.cmp")
-                        if cmp.is_visible() then
-                            cmp.hide()
-                        end
-                    end
-                    require("copilot.suggestion").next()
-                end,
-                mode = { "i" }
-            },
-            { "<C-l>", function() require("copilot.suggestion").accept() end, mode = { "i" } }
         },
     },
     {

@@ -28,10 +28,6 @@ return {
             -- See :h blink-cmp-config-keymap for defining your own keymap
             keymap = {
                 preset = "enter",
-                ["<Tab>"] = { "select_next", "fallback" },
-                ["<S-Tab>"] = { "select_prev", "fallback" },
-                ["<C-k>"] = { "snippet_backward", "fallback" },
-                ["<C-j>"] = { "snippet_forward", "fallback" },
             },
 
 
@@ -44,7 +40,7 @@ return {
             completion = {
                 list = {
                     selection = {
-                        preselect = false,
+                        preselect = true,
                     },
 
                 },
