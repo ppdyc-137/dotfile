@@ -5,7 +5,8 @@ sort_dir_first = true
 play = [
 	{ run = 'mpv "$@"', orphan = true, for = "unix" },
 ]
-sioyek = [
+document = [
+    { run = 'okular "$@"', orphan = true, desc = "okular", for = "linux" },
     { run = 'sioyek "$@"', orphan = true, desc = "sioyek", for = "linux" },
 ]
 imv = [
@@ -14,8 +15,8 @@ imv = [
 [open]
 prepend_rules = [
 	{ mime = "image/*", use = [ "imv", "reveal" ] },
-	{ mime = "application/pdf", use = [ "sioyek" ] },
-	{ mime = "application/octet-stream", use = [ "sioyek" ] },
+	{ mime = "application/pdf", use = [ "document" ] },
+	{ mime = "application/octet-stream", use = [ "document" ] },
 ]
 
 [[plugin.prepend_fetchers]]

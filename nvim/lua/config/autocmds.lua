@@ -73,3 +73,9 @@ vim.api.nvim_create_autocmd("CursorHold", {
         vim.diagnostic.open_float(nil, opts)
     end,
 })
+
+vim.api.nvim_create_autocmd('FileType', {
+  group = augroup("treesitter"),
+  pattern = { 'python' },
+  callback = function() vim.treesitter.start() end,
+})
