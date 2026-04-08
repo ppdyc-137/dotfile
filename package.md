@@ -13,6 +13,9 @@ pipewire pipewire-audio pipewire-pulse pavucontrol
 ## Hyprland
 xdg-desktop-portal-hyprland hyprpolkitagent qt5-wayland
 
+## niri
+xdg-desktop-portal-gtk xdg-desktop-portal-gnome plasma-polkit-agent
+
 ## Status Bar
 waybar
 
