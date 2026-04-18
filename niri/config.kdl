@@ -16,7 +16,7 @@ output "eDP-1" {
     // for the resolution.
     // If the mode is omitted altogether or is invalid, niri will pick one automatically.
     // Run `niri msg outputs` while inside a niri instance to list all outputs and their modes.
-    mode "1920x1080@60"
+    // mode "1920x1080@60"
 
     // You can use integer or fractional scale, for example use 1.5 for 150% scale.
     scale 1
@@ -200,6 +200,8 @@ overview {
 // This line starts waybar, a commonly used bar for Wayland compositors.
 environment {
   XDG_CURRENT_DESKTOP "niri"
+  QT_QPA_PLATFORMTHEME "gtk3"
+  QT_QPA_PLATFORMTHEME_QT6 "gtk3"
 }
 hotkey-overlay {
     skip-at-startup
@@ -308,6 +310,11 @@ recent-windows {
         Alt+Shift+grave { previous-window filter="app-id"; }
     }
 }
+
+workspace ""
+workspace ""
+
+spawn-at-startup "flclash"
 
 include "binds.kdl"
 

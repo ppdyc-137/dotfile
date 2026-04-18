@@ -43,7 +43,7 @@ return {
                         indent = 2,
                         { key = "v", desc = "Neovim", icon = " ", action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})", },
                         { key = "f", desc = "Fish", icon = "󰈺 ", action = ":e ~/.config/fish/config.fish", },
-                        { key = "h", desc = "Hyprland", icon = " ", action = ":e ~/.config/hypr/hyprland.conf", },
+                        { key = "n", desc = "Niri", icon = "󱂬", action = ":e ~/.config/niri/config.kdl", },
                         { key = "t", desc = "Kitty", icon = " ", action = ":e ~/.config/kitty/kitty.conf", },
                     },
                 },
