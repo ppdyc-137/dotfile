@@ -12,3 +12,7 @@ yazi/theme.toml
 
 #tmux
 tmux/plugins
+
+#dms
+DankMaterialShell/*
+!DankMaterialShell/settings.json
