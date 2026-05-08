@@ -49,7 +49,10 @@ return {
                 },
             },
             image = {},
-            picker = { focus = "list" },
+            picker = {
+                focus = "list",
+                ui_select = true
+            },
             words = {},
         },
         keys = {

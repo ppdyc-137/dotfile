@@ -6,8 +6,7 @@ return {
         opts = {
             formatters_by_ft = {
                 cpp = { "clang-format" },
-                python = { "black" },
-                sh = { "shfmt" },
+                python = { "ruff" },
             },
             default_format_opts = {
                 lsp_format = "fallback",

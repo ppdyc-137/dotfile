@@ -35,7 +35,7 @@ return {
                 layout = 'vertical',
                 width = 0.4,
             },
-            model = 'claude-sonnet-4',
+            show_help = false,
         },
         keys = {
             { "<leader>a", "<cmd>CopilotChat<cr>", { silent = true }, mode = { "n", "x" } }
