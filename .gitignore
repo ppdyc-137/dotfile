@@ -7,9 +7,6 @@ fish/*
 !fish/config.fish
 !fish/fisher.fish
 
-#yazi
-yazi/theme.toml
-
 #tmux
 tmux/plugins
 
