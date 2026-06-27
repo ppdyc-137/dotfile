@@ -311,6 +311,11 @@ recent-windows {
     }
 }
 
+window-rule {
+    match app-id=r#"com.follow.clash$"#
+    open-floating true
+}
+
 workspace ""
 workspace ""
 
