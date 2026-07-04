@@ -45,5 +45,3 @@ if vim.fn.has('persistent_undo') then
 end
 
 vim.cmd("highlight link markdownError NONE")
-
-vim.g.lsp_enable = true

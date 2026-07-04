@@ -1,5 +1,3 @@
-if not vim.g.lsp_enable then return {} end
-
 return {
     {
         'saghen/blink.cmp',
